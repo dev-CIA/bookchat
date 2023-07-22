@@ -1,6 +1,6 @@
 import React from 'react';
 import { MainHeader } from '../components/common';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const mockLinks = {
   mainLinks: [
@@ -24,7 +24,14 @@ const mockLinks = {
 };
 
 const Root = () => {
-  console.log();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    (() => {
+      navigate('/chat');
+    })();
+  }, []);
+
   return (
     <>
       <MainHeader mainLinks={mockLinks.mainLinks} />
