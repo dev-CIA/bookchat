@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createStyles, Header, Container, Anchor, Group, rem } from '@mantine/core';
+import { createStyles, Header, Container, Anchor, Group, rem, Button } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
 const HEADER_HEIGHT = rem(50);
@@ -87,13 +87,14 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={120}>
+    <Header height={HEADER_HEIGHT} mb={10}>
       <Container className={classes.inner}>
         <div className={classes.links}>
           <Group spacing={0} position="right" className={classes.mainLinks}>
             {mainItems}
           </Group>
         </div>
+        <Button>로그아웃</Button>
       </Container>
     </Header>
   );
