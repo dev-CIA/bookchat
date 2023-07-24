@@ -18,6 +18,13 @@ function App() {
             },
           }),
           primaryColor: 'teal',
+          breakpoints: {
+            xs: '30em', // 480px
+            sm: '48em', // 768px
+            md: '64em', // 1024px - ipad pro
+            lg: '74em', // 1184px
+            xl: '90em', // 1440px
+          },
         }}
         withCSSVariables
         withGlobalStyles
