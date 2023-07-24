@@ -5,14 +5,9 @@ import { Link } from 'react-router-dom';
 const HEADER_HEIGHT = rem(50);
 
 const useStyles = createStyles(theme => ({
-  wrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-
   inner: {
-    margin: '0',
-    width: '100%',
+    padding: '0',
+    width: '80%',
     height: HEADER_HEIGHT,
     display: 'flex',
     alignItems: 'center',
@@ -94,8 +89,8 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
   ));
 
   return (
-    <Header className={classes.wrapper} height={HEADER_HEIGHT} mb={10}>
-      <Container className={classes.inner}>
+    <Header height={HEADER_HEIGHT} mb={10}>
+      <Container className={classes.inner} fluid>
         <div className={classes.links}>
           <Group spacing={10} className={classes.mainLinks}>
             {mainItems}
