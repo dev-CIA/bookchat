@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom';
 const HEADER_HEIGHT = rem(50);
 
 const useStyles = createStyles(theme => ({
+  wrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
   inner: {
+    margin: '0',
+    width: '100%',
     height: HEADER_HEIGHT,
     display: 'flex',
     alignItems: 'center',
@@ -13,7 +20,7 @@ const useStyles = createStyles(theme => ({
   },
 
   links: {
-    paddingTop: theme.spacing.xl,
+    paddingTop: theme.spacing.lg,
     height: HEADER_HEIGHT,
     display: 'flex',
     flexDirection: 'column',
@@ -25,7 +32,7 @@ const useStyles = createStyles(theme => ({
   },
 
   mainLinks: {
-    marginRight: `calc(${theme.spacing.sm} * -1)`,
+    // marginRight: `calc(${theme.spacing.sm} * -1)`,
   },
 
   mainLink: {
@@ -87,14 +94,14 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={10}>
+    <Header className={classes.wrapper} height={HEADER_HEIGHT} mb={10}>
       <Container className={classes.inner}>
         <div className={classes.links}>
-          <Group spacing={0} position="right" className={classes.mainLinks}>
+          <Group spacing={10} className={classes.mainLinks}>
             {mainItems}
           </Group>
         </div>
-        <Button>로그아웃</Button>
+        <Button size="xs">로그아웃</Button>
       </Container>
     </Header>
   );

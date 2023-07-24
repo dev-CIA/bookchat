@@ -13,6 +13,8 @@ function App() {
           globalStyles: () => ({
             '*, *::before, *::after': {
               boxSizing: 'border-box',
+              margin: '0',
+              padding: '0',
             },
           }),
           primaryColor: 'teal',

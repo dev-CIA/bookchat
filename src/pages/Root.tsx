@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainHeader } from '../components/common';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { AppShell, createStyles } from '@mantine/core';
 
 const mockLinks = {
   mainLinks: [
@@ -23,8 +24,15 @@ const mockLinks = {
   ],
 };
 
+const useStyles = createStyles(() => ({
+  wrapper: {
+    margin: '0 auto',
+  },
+}));
+
 const Root = () => {
   const navigate = useNavigate();
+  const { classes } = useStyles();
 
   React.useEffect(() => {
     (() => {
@@ -34,8 +42,9 @@ const Root = () => {
 
   return (
     <>
-      <MainHeader mainLinks={mockLinks.mainLinks} />
-      <Outlet />
+      <AppShell w={'80%'} miw={300} className={classes.wrapper} header={<MainHeader mainLinks={mockLinks.mainLinks} />}>
+        <Outlet />
+      </AppShell>
     </>
   );
 };
