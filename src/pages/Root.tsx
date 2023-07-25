@@ -1,7 +1,8 @@
 import React from 'react';
-import { MainHeader } from '../components/common';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { MainHeader, MobileHeader, MobileFooter } from '../components/root';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { AppShell, createStyles } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 
 const mockLinks = {
   mainLinks: [
@@ -32,17 +33,23 @@ const useStyles = createStyles(() => ({
 
 const Root = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { classes } = useStyles();
+  const mediumScreen = useMediaQuery('(min-width: 64em');
 
   React.useEffect(() => {
-    (() => {
-      navigate('/chat');
-    })();
+    if (pathname !== '/chat' && pathname !== '/') return;
+    navigate('/chat');
   }, []);
 
   return (
     <>
-      <AppShell w={'80%'} miw={350} className={classes.wrapper} header={<MainHeader mainLinks={mockLinks.mainLinks} />}>
+      <AppShell
+        w={'80%'}
+        miw={350}
+        className={classes.wrapper}
+        header={mediumScreen ? <MainHeader mainLinks={mockLinks.mainLinks} /> : <MobileHeader />}
+        footer={mediumScreen ? <></> : <MobileFooter mainLinks={mockLinks.mainLinks} />}>
         <Outlet />
       </AppShell>
     </>
