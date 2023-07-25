@@ -42,7 +42,7 @@ const Root = () => {
 
   return (
     <>
-      <AppShell w={'80%'} miw={300} className={classes.wrapper} header={<MainHeader mainLinks={mockLinks.mainLinks} />}>
+      <AppShell w={'80%'} miw={350} className={classes.wrapper} header={<MainHeader mainLinks={mockLinks.mainLinks} />}>
         <Outlet />
       </AppShell>
     </>
