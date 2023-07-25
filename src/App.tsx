@@ -24,6 +24,7 @@ function App() {
             md: '64em', // 1024px - ipad pro
             lg: '74em', // 1184px
             xl: '90em', // 1440px
+            xxl: '120em', // 1920px
           },
         }}
         withCSSVariables
