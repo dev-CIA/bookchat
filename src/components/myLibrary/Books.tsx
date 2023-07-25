@@ -5,6 +5,7 @@ import { SimpleGrid, Container } from '@mantine/core';
 const mockData = [
   {
     title: '시선으로부터, (정세랑 장편소설)',
+    rate: 4.5,
     link: 'https://search.shopping.naver.com/book/catalog/32454975970',
     image: 'https://shopping-phinf.pstatic.net/main_3245497/32454975970.20230110165450.jpg',
     author: '정세랑',
@@ -17,6 +18,7 @@ const mockData = [
   },
   {
     title: '[큰글자책] 시선으로부터, (정세랑 장편소설)',
+    rate: 4.5,
     link: 'https://search.shopping.naver.com/book/catalog/32466688682',
     image: 'https://shopping-phinf.pstatic.net/main_3246668/32466688682.20230722071017.jpg',
     author: '정세랑',
@@ -29,6 +31,7 @@ const mockData = [
   },
   {
     title: '우리는 사랑일까 (개정판)',
+    rate: 4,
     link: 'https://search.shopping.naver.com/book/catalog/32455937983',
     image: 'https://shopping-phinf.pstatic.net/main_3245593/32455937983.20221230071412.jpg',
     author: '알랭 드 보통',
@@ -41,6 +44,7 @@ const mockData = [
   },
   {
     title: '우리는 정말 사랑일까',
+    rate: 3.5,
     link: 'https://search.shopping.naver.com/book/catalog/32492653031',
     image: 'https://shopping-phinf.pstatic.net/main_3249265/32492653031.20220527032849.jpg',
     author: '김종오',
@@ -53,6 +57,7 @@ const mockData = [
   },
   {
     title: '우리는 언제나 서로의 행복이야 (슈야 토야의 소소하고 행복한 일상)',
+    rate: 3.5,
     link: 'https://search.shopping.naver.com/book/catalog/41120988621',
     image: 'https://shopping-phinf.pstatic.net/main_4112098/41120988621.20230712072344.jpg',
     author: '대원앤북 편집부 지음',
@@ -65,6 +70,7 @@ const mockData = [
   },
   {
     title: '우리는 모두 죽는다는 것을 기억하라 (삶의 다른 방식을 찾고 있는 당신에게)',
+    rate: 3,
     link: 'https://search.shopping.naver.com/book/catalog/32486411750',
     image: 'https://shopping-phinf.pstatic.net/main_3248641/32486411750.20230606085903.jpg',
     author: '웨인 다이어',
@@ -77,6 +83,7 @@ const mockData = [
   },
   {
     title: '우리는 에코 히어로! 4권 세트',
+    rate: 3,
     link: 'https://search.shopping.naver.com/book/catalog/40342140620',
     image: 'https://shopping-phinf.pstatic.net/main_4034214/40342140620.20230614072206.jpg',
     author: '플로렌스 어커트',
@@ -89,6 +96,7 @@ const mockData = [
   },
   {
     title: '우리는 언제나 다시 만나',
+    rate: 3.5,
     link: 'https://search.shopping.naver.com/book/catalog/32455538744',
     image: 'https://shopping-phinf.pstatic.net/main_3245553/32455538744.20230718122241.jpg',
     author: '윤여림',
@@ -101,6 +109,7 @@ const mockData = [
   },
   {
     title: '우리는 모두 달라요 (인종에 관한 첫 번째 대화)',
+    rate: 2.5,
     link: 'https://search.shopping.naver.com/book/catalog/35911952619',
     image: 'https://shopping-phinf.pstatic.net/main_3591195/35911952619.20230516164322.jpg',
     author: '메건 매디슨^제시카 랠리',
@@ -113,6 +122,7 @@ const mockData = [
   },
   {
     title: '우리는 에코 히어로! 1: 집에서 시작하기',
+    rate: 4,
     link: 'https://search.shopping.naver.com/book/catalog/40342157618',
     image: 'https://shopping-phinf.pstatic.net/main_4034215/40342157618.20230606085700.jpg',
     author: '플로렌스 어커트',
@@ -125,6 +135,7 @@ const mockData = [
   },
   {
     title: '우리는 에코 히어로! 2: 자연과 함께하기',
+    rate: 3,
     link: 'https://search.shopping.naver.com/book/catalog/40342146618',
     image: 'https://shopping-phinf.pstatic.net/main_4034214/40342146618.20230606103846.jpg',
     author: '플로렌스 어커트',
@@ -137,6 +148,7 @@ const mockData = [
   },
   {
     title: '뽀롱뽀롱 뽀로로 우리는 친구',
+    rate: 5,
     link: 'https://search.shopping.naver.com/book/catalog/32462284726',
     image: 'https://shopping-phinf.pstatic.net/main_3246228/32462284726.20230614072503.jpg',
     author: '키즈아이콘 편집부',
