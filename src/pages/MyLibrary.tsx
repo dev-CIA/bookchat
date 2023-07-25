@@ -1,6 +1,6 @@
 import { Books } from '../components/myLibrary';
 import { ActionIcon, TextInput, createStyles } from '@mantine/core';
-import { BsBook, BsSearch } from 'react-icons/bs';
+import { IconBook, IconSearch } from '@tabler/icons-react';
 import React from 'react';
 
 const useStyles = createStyles(() => ({
@@ -17,10 +17,17 @@ const MyLibrary = () => {
   return (
     <>
       <form className={classes.form}>
-        <TextInput placeholder="검색" icon={<BsBook />} w={'60%'} miw={300} />
-        <ActionIcon variant="filled" size={'lg'} title="search">
-          <BsSearch />
-        </ActionIcon>
+        <TextInput
+          placeholder="도서 검색"
+          icon={<IconBook />}
+          w={'60%'}
+          miw={300}
+          rightSection={
+            <ActionIcon variant="filled" size={'md'} title="search">
+              <IconSearch size="1rem" />
+            </ActionIcon>
+          }
+        />
       </form>
       <Books />
     </>
