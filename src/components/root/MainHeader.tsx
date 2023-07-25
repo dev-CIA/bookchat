@@ -1,31 +1,24 @@
 import { useState } from 'react';
 import { createStyles, Header, Container, Anchor, Group, rem, Button } from '@mantine/core';
 import { Link } from 'react-router-dom';
-
-const HEADER_HEIGHT = rem(50);
+import { sizes } from '../../constants';
 
 const useStyles = createStyles(theme => ({
   inner: {
-    height: HEADER_HEIGHT,
+    padding: '0',
+    width: '80%',
+    height: sizes.HEADER_HEIGHT,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
 
   links: {
-    paddingTop: theme.spacing.xl,
-    height: HEADER_HEIGHT,
+    paddingTop: theme.spacing.lg,
+    height: sizes.HEADER_HEIGHT,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-
-    [theme.fn.smallerThan('sm')]: {
-      display: 'none',
-    },
-  },
-
-  mainLinks: {
-    marginRight: `calc(${theme.spacing.sm} * -1)`,
   },
 
   mainLink: {
@@ -87,16 +80,16 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={10}>
-      <Container className={classes.inner}>
-        <div className={classes.links}>
-          <Group spacing={0} position="right" className={classes.mainLinks}>
-            {mainItems}
-          </Group>
-        </div>
-        <Button>로그아웃</Button>
-      </Container>
-    </Header>
+    <>
+      <Header height={sizes.HEADER_HEIGHT} mb={10}>
+        <Container className={classes.inner} fluid>
+          <div className={classes.links}>
+            <Group spacing={10}>{mainItems}</Group>
+          </div>
+          <Button size="xs">로그아웃</Button>
+        </Container>
+      </Header>
+    </>
   );
 };
 
