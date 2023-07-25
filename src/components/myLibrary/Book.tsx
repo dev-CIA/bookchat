@@ -1,4 +1,5 @@
 import { createStyles, Card, Image, Text, AspectRatio, Group, Rating } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -25,18 +26,27 @@ interface BookProps {
 
 const Book = ({ image, title, rate }: BookProps) => {
   const { classes } = useStyles();
+  const smallScreen = useMediaQuery('(max-width: 48em');
 
   return (
-    <Card key={title} p="xs" radius="md" component="a" href="#" className={classes.card} shadow="sm" withBorder>
+    <Card
+      key={title}
+      p={smallScreen ? 5 : 10}
+      radius="md"
+      component="a"
+      href="#"
+      className={classes.card}
+      shadow="sm"
+      withBorder>
       <Card.Section>
         <AspectRatio ratio={720 / 1080}>
-          <Image src={image} />
+          <Image src={image} alt="book image" fit="contain" />
         </AspectRatio>
       </Card.Section>
-      <Group mt={5}>
-        <Rating value={rate} fractions={2} readOnly />
+      <Group mt={smallScreen ? 3 : 5}>
+        <Rating value={rate} fractions={2} size={smallScreen ? 'xs' : 'md'} readOnly />
       </Group>
-      <Text className={classes.title} mt={5} lineClamp={1}>
+      <Text className={classes.title} mt={smallScreen ? 3 : 5} size={smallScreen ? 'sm' : 'md'} lineClamp={1}>
         {title}
       </Text>
     </Card>

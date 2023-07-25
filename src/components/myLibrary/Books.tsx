@@ -169,9 +169,8 @@ const Books = () => {
       <SimpleGrid
         cols={5}
         breakpoints={[
-          { maxWidth: 'xs', cols: 2 },
-          { maxWidth: 'md', cols: 3 },
-          { maxWidth: 'lg', cols: 4 },
+          { maxWidth: 'md', cols: 3, spacing: 'sm' },
+          { maxWidth: 'lg', cols: 4, spacing: 'md' },
         ]}>
         {mockData.map(data => (
           <Book key={data.isbn + data.title} {...data} />
