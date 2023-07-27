@@ -213,7 +213,7 @@ const BookChat = () => {
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessageInput(event.target.value);
   };
 
