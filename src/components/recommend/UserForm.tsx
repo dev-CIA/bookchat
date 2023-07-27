@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Paper, Select, TextInput, Title } from '@mantine/core';
 import { WEATHER, MOOD } from '../../constants';
+import { Selector } from '.';
 
 const mockData = [
   {
@@ -168,46 +169,29 @@ const UserForm = () => {
     setLibraryData(datas);
   }, []);
 
+  const selectors = [
+    {
+      id: 'book',
+      datas: libraryData,
+      title: '내 서재에서 좋아하는 책 기반으로 추천받기',
+      placeholder: '좋아하는 책을 고르세요',
+    },
+    { id: 'book', datas: WEATHER, title: '날씨에 어울리는 책 추천받기', placeholder: '날씨를 고르세요' },
+    { id: 'book', datas: MOOD, title: '내 기분에 맞는 책 추천받기', placeholder: '기분을 고르세요' },
+  ];
+
   return (
     <>
       <Title order={1}>내 취향대로, 상황따라 책을 추천받아 보세요!</Title>
       <Paper>
         <Title order={2}>다음 항목 중 하나 이상을 작성해주세요.</Title>
         <form>
-          <Title size={20}>좋아하는 책 기반으로 추천받기</Title>
-          <Select
-            label="내 서재에서 고르기"
-            placeholder="좋아하는 책을 고르세요"
-            data={libraryData}
-            searchable
-            clearable
-            allowDeselect
-            maxDropdownHeight={280}
-            transitionProps={{ transition: 'pop-top-left', duration: 80, timingFunction: 'ease' }}
-          />
-          <TextInput label="검색으로 고르기" placeholder="책 검색하기" />
+          {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
+          {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
 
-          <Title size={20}>날씨에 어울리는 책 추천받기</Title>
-          <Select
-            data={WEATHER}
-            placeholder="날씨를 고르세요"
-            searchable
-            clearable
-            allowDeselect
-            maxDropdownHeight={280}
-            transitionProps={{ transition: 'pop-top-left', duration: 80, timingFunction: 'ease' }}
-          />
-
-          <Title size={20}>내 기분에 맞는 책 추천받기</Title>
-          <Select
-            data={MOOD}
-            placeholder="기분을 고르세요"
-            searchable
-            clearable
-            allowDeselect
-            maxDropdownHeight={280}
-            transitionProps={{ transition: 'pop-top-left', duration: 80, timingFunction: 'ease' }}
-          />
+          {selectors.map(selector => (
+            <Selector key={selector.id} {...selector} />
+          ))}
 
           <Title size={20}>기타 조건 입력하기</Title>
           <TextInput aria-label="기타 조건" placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요" />
