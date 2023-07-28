@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Paper, Select, TextInput, Title } from '@mantine/core';
+import { Button, Paper, TextInput, Title, Text, Flex, Space, Box, Container } from '@mantine/core';
 import { WEATHER, MOOD } from '../../constants';
 import { Selector } from '.';
 
@@ -181,25 +181,34 @@ const UserForm = () => {
   ];
 
   return (
-    <>
-      <Title order={1}>내 취향대로, 상황따라 책을 추천받아 보세요!</Title>
-      <Paper>
-        <Title order={2}>다음 항목 중 하나 이상을 작성해주세요.</Title>
+    <Container mt={10}>
+      <Title order={1} size={30}>
+        내 취향대로, 상황따라 책을 추천받아 보세요!
+      </Title>
+      <Text fz={'md'} p={8} c={'dimmed'}>
+        * 다음 항목 중 하나 이상을 작성해주세요.
+      </Text>
+      <Paper shadow="sm" p="md" radius={'md'} withBorder>
         <form>
           {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
           {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
 
-          {selectors.map(selector => (
-            <Selector key={selector.id} {...selector} />
-          ))}
+          <Flex direction={'column'} gap={4}>
+            {selectors.map(selector => (
+              <Box key={selector.id}>
+                <Selector {...selector} />
+                <Space h={'sm'} />
+              </Box>
+            ))}
+            <Title size={20}>기타 조건 입력하기</Title>
+            <TextInput aria-label="기타 조건" placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요" />
+            <Space h={'sm'} />
 
-          <Title size={20}>기타 조건 입력하기</Title>
-          <TextInput aria-label="기타 조건" placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요" />
-
-          <Button type="submit">추천받기</Button>
+            <Button type="submit">추천받기</Button>
+          </Flex>
         </form>
       </Paper>
-    </>
+    </Container>
   );
 };
 
