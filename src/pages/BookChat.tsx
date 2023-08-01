@@ -78,7 +78,7 @@ const BookChat = () => {
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [messageInput, setMessageInput] = React.useState('');
 
-  const handleSendMessage = () => {
+  const sendMessage = () => {
     if (messageInput.trim() !== '') {
       const newMessage: Message = {
         id: Date.now(),
@@ -96,7 +96,7 @@ const BookChat = () => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-      handleSendMessage();
+      sendMessage();
     }
   };
 
@@ -138,7 +138,7 @@ const BookChat = () => {
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           rightSection={
-            <ActionIcon variant="light" onClick={handleSendMessage} size={35}>
+            <ActionIcon variant="light" onClick={sendMessage} size={35}>
               <IconSend size={20} />
             </ActionIcon>
           }
