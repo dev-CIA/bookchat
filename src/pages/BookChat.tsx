@@ -205,7 +205,7 @@ const BookChat = () => {
     if (messageInput.trim() !== '') {
       const newMessage: Message = {
         id: Date.now(),
-        content: messageInput.trim(),
+        content: messageInput.trim().replace(/\n/g, ' '),
         sender: 'user',
       };
       setMessages([...messages, newMessage]);
