@@ -1,6 +1,7 @@
 import React from 'react';
 import { ActionIcon, Textarea, Text, createStyles, Container, Avatar, rem, Flex } from '@mantine/core';
 import { IconSend } from '@tabler/icons-react';
+import { updateChat } from '../api';
 
 const useStyles = createStyles(theme => ({
   container: {
@@ -78,15 +79,31 @@ const BookChat = () => {
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [messageInput, setMessageInput] = React.useState('');
 
-  const sendMessage = () => {
-    if (messageInput.trim() !== '') {
-      const newMessage: Message = {
+  const sendMessage = async () => {
+    if (messageInput.trim() === '') return;
+
+    const newMessage: Message = {
+      id: Date.now(),
+      content: messageInput.trim(),
+      sender: 'user',
+    };
+    setMessages([...messages, newMessage]);
+    setMessageInput('');
+
+    try {
+      const { data } = await updateChat(newMessage);
+
+      const newAnswer: Message = {
         id: Date.now(),
-        content: messageInput.trim().replace(/\n/g, ' '),
-        sender: 'user',
+        content: data,
+        sender: 'assistant',
       };
-      setMessages([...messages, newMessage]);
-      setMessageInput('');
+      console.log('newAnswer', data);
+      setMessages(messages => [...messages, newAnswer]);
+      console.log(messages);
+    } catch (error: any) {
+      console.error('요청 실패: ', error.message);
+    } finally {
     }
   };
 
