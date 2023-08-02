@@ -1,11 +1,11 @@
 import React from 'react';
-import { UserForm } from '../components/recommend';
+import { ConditionForm } from '../components/recommend';
 
 const Recommend = () => {
   console.log();
   return (
     <>
-      <UserForm />
+      <ConditionForm />
     </>
   );
 };
