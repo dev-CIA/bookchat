@@ -176,8 +176,8 @@ const UserForm = () => {
       title: '내 서재에서 좋아하는 책 기반으로 추천받기',
       placeholder: '좋아하는 책을 고르세요',
     },
-    { id: 'book', datas: WEATHER, title: '날씨에 어울리는 책 추천받기', placeholder: '날씨를 고르세요' },
-    { id: 'book', datas: MOOD, title: '내 기분에 맞는 책 추천받기', placeholder: '기분을 고르세요' },
+    { id: 'weather', datas: WEATHER, title: '날씨에 어울리는 책 추천받기', placeholder: '날씨를 고르세요' },
+    { id: 'mood', datas: MOOD, title: '내 기분에 맞는 책 추천받기', placeholder: '기분을 고르세요' },
   ];
 
   return (
