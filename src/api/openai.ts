@@ -21,5 +21,4 @@ const updateChat = async (message: Message) =>
     },
     config
   );
-
 export { updateChat };
