@@ -8,7 +8,7 @@ interface Message {
 }
 
 const config = {
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:3000/api/ai',
 };
 
 const updateChat = async (message: Message) =>
