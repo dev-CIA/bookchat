@@ -1,7 +1,7 @@
 import React from 'react';
 import { z } from 'zod';
 import { Button, Paper, TextInput, Title, Text, Flex, Space, Container } from '@mantine/core';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { WEATHER, MOOD } from '../../constants';
 import { Selector } from '.';
 import { partialConditionForm } from '../../schema';
@@ -169,7 +169,7 @@ type FormData = z.infer<typeof partialConditionForm>;
 
 const ConditionForm = () => {
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
-  const { register, handleSubmit } = useForm<FormData>();
+  const methods = useForm<FormData>();
 
   React.useEffect(() => {
     const datas = mockData.map(data => `${data.title} / ${data.author}`).sort((a, b) => a.localeCompare(b));
@@ -200,20 +200,26 @@ const ConditionForm = () => {
         * 다음 항목 중 하나 이상을 작성해주세요.
       </Text>
       <Paper shadow="sm" p="md" radius={'md'} withBorder>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
-          {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
+            {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
 
-          <Flex direction={'column'} gap={4}>
-            {selectors.map(selector => (
-              <Selector key={selector.id} {...selector} />
-            ))}
-            <Title size={20}>기타 조건 입력하기</Title>
-            <TextInput aria-label="기타 조건" placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요" />
-            <Space h={'sm'} />
-            <Button type="submit">추천받기</Button>
-          </Flex>
-        </form>
+            <Flex direction={'column'} gap={4}>
+              {selectors.map(selector => (
+                <Selector key={selector.id} {...selector} />
+              ))}
+              <Title size={20}>기타 조건 입력하기</Title>
+              <TextInput
+                {...methods.register('other')}
+                aria-label="기타 조건"
+                placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요"
+              />
+              <Space h={'sm'} />
+              <Button type="submit">추천받기</Button>
+            </Flex>
+          </form>
+        </FormProvider>
       </Paper>
     </Container>
   );
