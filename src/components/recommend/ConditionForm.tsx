@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Paper, Title, Text, Flex, Container } from '@mantine/core';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { WEATHER, MOOD } from '../../constants';
-import { Selector } from '.';
+import { FormInput } from '.';
 import { partialConditionForm } from '../../schema';
 
 const mockData = [
@@ -217,7 +217,7 @@ const ConditionForm = () => {
 
             <Flex direction={'column'} gap={4}>
               {selectors.map(selector => (
-                <Selector key={selector.id} {...selector} />
+                <FormInput key={selector.id} {...selector} />
               ))}
 
               <Button type="submit" disabled={!methods.formState.isDirty}>

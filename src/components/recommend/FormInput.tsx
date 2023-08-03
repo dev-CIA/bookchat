@@ -16,7 +16,7 @@ interface SelectorProps {
   placeholder: string;
 }
 
-const Selector = ({ id, datas, title, placeholder }: SelectorProps) => {
+const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
   const { classes } = useStyles();
   const { control } = useFormContext();
 
@@ -50,4 +50,4 @@ const Selector = ({ id, datas, title, placeholder }: SelectorProps) => {
   );
 };
 
-export default Selector;
+export default FormInput;
