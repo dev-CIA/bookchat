@@ -1,1 +1,1 @@
-export { updateChat } from './chat';
+export { updateChat } from './openai';
