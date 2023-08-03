@@ -6,6 +6,7 @@ import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { WEATHER, MOOD } from '../../constants';
 import { FormInput } from '.';
 import { partialConditionForm } from '../../schema';
+import { sendCondition } from '../../api/openai';
 
 const mockData = [
   {
@@ -197,8 +198,15 @@ const ConditionForm = () => {
     },
   ];
 
-  const onSubmit: SubmitHandler<FormData> = data => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async formDatas => {
+    console.log(formDatas);
+    try {
+      const { data } = await sendCondition(formDatas);
+
+      console.log(data);
+    } catch (error: any) {
+      console.error('요청 실패: ', error.message);
+    }
   };
 
   return (
