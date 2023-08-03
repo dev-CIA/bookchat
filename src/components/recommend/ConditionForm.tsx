@@ -1,7 +1,10 @@
 import React from 'react';
-import { Button, Paper, TextInput, Title, Text, Flex, Space, Box, Container } from '@mantine/core';
+import { z } from 'zod';
+import { Button, Paper, TextInput, Title, Text, Flex, Space, Container } from '@mantine/core';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { WEATHER, MOOD } from '../../constants';
 import { Selector } from '.';
+import { partialConditionForm } from '../../schema';
 
 const mockData = [
   {
@@ -162,8 +165,11 @@ const mockData = [
   },
 ];
 
+type FormData = z.infer<typeof partialConditionForm>;
+
 const ConditionForm = () => {
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
+  const { register, handleSubmit } = useForm<FormData>();
 
   React.useEffect(() => {
     const datas = mockData.map(data => `${data.title} / ${data.author}`).sort((a, b) => a.localeCompare(b));
@@ -181,6 +187,10 @@ const ConditionForm = () => {
     { id: 'mood', datas: MOOD, title: '내 기분에 맞는 책 추천받기', placeholder: '기분을 고르세요' },
   ];
 
+  const onSubmit: SubmitHandler<FormData> = data => {
+    console.log(data);
+  };
+
   return (
     <Container mt={10}>
       <Title order={1} size={30}>
@@ -190,7 +200,7 @@ const ConditionForm = () => {
         * 다음 항목 중 하나 이상을 작성해주세요.
       </Text>
       <Paper shadow="sm" p="md" radius={'md'} withBorder>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
           {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
 
@@ -201,7 +211,6 @@ const ConditionForm = () => {
             <Title size={20}>기타 조건 입력하기</Title>
             <TextInput aria-label="기타 조건" placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요" />
             <Space h={'sm'} />
-
             <Button type="submit">추천받기</Button>
           </Flex>
         </form>
