@@ -220,7 +220,9 @@ const ConditionForm = () => {
                 <Selector key={selector.id} {...selector} />
               ))}
 
-              <Button type="submit">추천받기</Button>
+              <Button type="submit" disabled={!methods.formState.isDirty}>
+                추천받기
+              </Button>
             </Flex>
           </form>
         </FormProvider>
