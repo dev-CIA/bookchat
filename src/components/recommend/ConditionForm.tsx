@@ -1,5 +1,6 @@
 import React from 'react';
 import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Paper, Title, Text, Flex, Container } from '@mantine/core';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { WEATHER, MOOD } from '../../constants';
@@ -169,7 +170,9 @@ type FormData = z.infer<typeof partialConditionForm>;
 
 const ConditionForm = () => {
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
-  const methods = useForm<FormData>();
+  const methods = useForm<FormData>({
+    resolver: zodResolver(partialConditionForm),
+  });
 
   React.useEffect(() => {
     const datas = mockData.map(data => `${data.title} / ${data.author}`).sort((a, b) => a.localeCompare(b));
