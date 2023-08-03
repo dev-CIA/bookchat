@@ -1,6 +1,6 @@
 import React from 'react';
 import { z } from 'zod';
-import { Button, Paper, TextInput, Title, Text, Flex, Space, Container } from '@mantine/core';
+import { Button, Paper, Title, Text, Flex, Container } from '@mantine/core';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { WEATHER, MOOD } from '../../constants';
 import { Selector } from '.';
@@ -185,6 +185,12 @@ const ConditionForm = () => {
     },
     { id: 'weather', datas: WEATHER, title: '날씨에 어울리는 책 추천받기', placeholder: '날씨를 고르세요' },
     { id: 'mood', datas: MOOD, title: '내 기분에 맞는 책 추천받기', placeholder: '기분을 고르세요' },
+    {
+      id: 'other',
+      datas: [''],
+      title: '기타 조건 입력하기',
+      placeholder: '더 추가하고 싶은 조건을 명확하게 입력해주세요',
+    },
   ];
 
   const onSubmit: SubmitHandler<FormData> = data => {
@@ -209,13 +215,7 @@ const ConditionForm = () => {
               {selectors.map(selector => (
                 <Selector key={selector.id} {...selector} />
               ))}
-              <Title size={20}>기타 조건 입력하기</Title>
-              <TextInput
-                {...methods.register('other')}
-                aria-label="기타 조건"
-                placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요"
-              />
-              <Space h={'sm'} />
+
               <Button type="submit">추천받기</Button>
             </Flex>
           </form>
