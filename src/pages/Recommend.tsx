@@ -1,11 +1,11 @@
 import React from 'react';
-import { ConditionForm } from '../components/recommend';
+import { Outlet } from 'react-router-dom';
 
 const Recommend = () => {
   console.log();
   return (
     <>
-      <ConditionForm />
+      <Outlet />
     </>
   );
 };
