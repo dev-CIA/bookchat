@@ -3,10 +3,10 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Paper, Title, Text, Flex, Container } from '@mantine/core';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
-import { WEATHER, MOOD } from '../../constants';
-import { FormInput } from '.';
-import { partialConditionForm } from '../../schema';
-import { sendCondition } from '../../api/openai';
+import { WEATHER, MOOD } from '../constants';
+import { FormInput } from '../components/recommend';
+import { partialConditionForm } from '../schema';
+import { sendCondition } from '../api/openai';
 
 const mockData = [
   {
@@ -169,7 +169,7 @@ const mockData = [
 
 type FormData = z.infer<typeof partialConditionForm>;
 
-const ConditionForm = () => {
+const RecommendForm = () => {
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
   const methods = useForm<FormData>({
     resolver: zodResolver(partialConditionForm),
@@ -239,4 +239,4 @@ const ConditionForm = () => {
   );
 };
 
-export default ConditionForm;
+export default RecommendForm;
