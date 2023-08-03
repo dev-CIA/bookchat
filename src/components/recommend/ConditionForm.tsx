@@ -162,8 +162,9 @@ const mockData = [
   },
 ];
 
-const UserForm = () => {
+const ConditionForm = () => {
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
+
   React.useEffect(() => {
     const datas = mockData.map(data => `${data.title} / ${data.author}`).sort((a, b) => a.localeCompare(b));
     setLibraryData(datas);
@@ -195,10 +196,7 @@ const UserForm = () => {
 
           <Flex direction={'column'} gap={4}>
             {selectors.map(selector => (
-              <Box key={selector.id}>
-                <Selector {...selector} />
-                <Space h={'sm'} />
-              </Box>
+              <Selector key={selector.id} {...selector} />
             ))}
             <Title size={20}>기타 조건 입력하기</Title>
             <TextInput aria-label="기타 조건" placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요" />
@@ -212,4 +210,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default ConditionForm;

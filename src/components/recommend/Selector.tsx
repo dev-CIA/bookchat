@@ -1,5 +1,4 @@
-import React from 'react';
-import { Select, TextInput, Title } from '@mantine/core';
+import { Select, Title, Space } from '@mantine/core';
 
 interface SelectorProps {
   datas: string[];
@@ -23,6 +22,7 @@ const Selector = ({ datas, title, placeholder }: SelectorProps) => {
         transitionProps={{ transition: 'pop-top-left', duration: 80, timingFunction: 'ease' }}
         aria-label={title}
       />
+      <Space h={'sm'} />
     </>
   );
 };
