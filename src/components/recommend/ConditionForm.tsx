@@ -172,6 +172,7 @@ const ConditionForm = () => {
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
   const methods = useForm<FormData>({
     resolver: zodResolver(partialConditionForm),
+    defaultValues: { book: '', weather: '', mood: '', other: '' },
   });
 
   React.useEffect(() => {
