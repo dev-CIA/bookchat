@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BookChat, MyLibrary, Profile, Recommend, Root } from '../pages';
+import { BookChat, MyLibrary, Profile, Recommend, Root, RecommendResult, RecommendForm } from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +13,16 @@ const router = createBrowserRouter([
       {
         path: 'recommend',
         element: <Recommend />,
+        children: [
+          {
+            path: '',
+            element: <RecommendForm />,
+          },
+          {
+            path: 'result',
+            element: <RecommendResult />,
+          },
+        ],
       },
       {
         path: 'mylibrary',
