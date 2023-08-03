@@ -1,11 +1,15 @@
 import axios from 'axios';
 import { URL } from '../constants';
+import { z } from 'zod';
+import { partialConditionForm } from '../schema';
 
 interface Message {
   id: number;
   content: string;
   sender: string;
 }
+
+type FormData = z.infer<typeof partialConditionForm>;
 
 const config = {
   baseURL: 'http://localhost:3000/api/ai',
@@ -21,4 +25,7 @@ const updateChat = async (message: Message) =>
     },
     config
   );
-export { updateChat };
+
+const sendCondition = async (condition: FormData) => axios.post(`${URL.RECOMMEND}`, { ...condition }, config);
+
+export { updateChat, sendCondition };
