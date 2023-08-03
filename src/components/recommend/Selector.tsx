@@ -1,4 +1,5 @@
-import { Title, Space, Select, TextInput } from '@mantine/core';
+import { Title, Space } from '@mantine/core';
+import { Select, TextInput } from 'react-hook-form-mantine';
 import { useFormContext } from 'react-hook-form';
 
 interface SelectorProps {
@@ -9,13 +10,14 @@ interface SelectorProps {
 }
 
 const Selector = ({ id, datas, title, placeholder }: SelectorProps) => {
-  const { register } = useFormContext();
+  const { control } = useFormContext();
 
   return (
     <>
       <Title size={20}>{title}</Title>
       {id !== 'other' ? (
         <Select
+          name={id}
           data={datas}
           placeholder={placeholder}
           searchable
@@ -26,7 +28,7 @@ const Selector = ({ id, datas, title, placeholder }: SelectorProps) => {
           aria-label={title}
         />
       ) : (
-        <TextInput aria-label={title} placeholder={placeholder} />
+        <TextInput name={id} control={control} aria-label={title} placeholder={placeholder} />
       )}
       <Space h={'sm'} />
     </>
