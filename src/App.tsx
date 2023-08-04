@@ -1,13 +1,11 @@
-import { useState } from 'react';
+import { RecoilRoot } from 'recoil';
 import { RouterProvider } from 'react-router-dom';
 import router from './router/router';
 import { MantineProvider } from '@mantine/core';
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <>
+    <RecoilRoot>
       <MantineProvider
         theme={{
           globalStyles: () => ({
@@ -33,8 +31,8 @@ function App() {
         withNormalizeCSS>
         <RouterProvider router={router} />
       </MantineProvider>
-    </>
+    </RecoilRoot>
   );
-}
+};
 
 export default App;

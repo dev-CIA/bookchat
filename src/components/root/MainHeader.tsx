@@ -1,7 +1,9 @@
-import { useState } from 'react';
 import { createStyles, Header, Container, Anchor, Group, rem, Button } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { sizes } from '../../constants';
+import { useRecoilState } from 'recoil';
+import { menuState } from '../../recoil/atoms';
+import { UserMenu } from '.';
 
 const useStyles = createStyles(theme => ({
   inner: {
@@ -61,7 +63,7 @@ interface MainHeaderProps {
 
 const MainHeader = ({ mainLinks }: MainHeaderProps) => {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useRecoilState(menuState);
 
   const mainItems = mainLinks.map((item, index) => (
     <Anchor<'button'>
@@ -71,9 +73,9 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
       className={classes.anchor}
       onClick={event => {
         event.preventDefault();
-        setActive(index);
+        setActive(index + '');
       }}>
-      <Link to={item.link} className={cx(classes.mainLink, { [classes.mainLinkActive]: index === active })}>
+      <Link to={item.link} className={cx(classes.mainLink, { [classes.mainLinkActive]: index === +active })}>
         {item.label}
       </Link>
     </Anchor>
@@ -86,7 +88,8 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
           <div className={classes.links}>
             <Group spacing={10}>{mainItems}</Group>
           </div>
-          <Button size="xs">로그아웃</Button>
+          <UserMenu />
+          {/* <Button size="xs">로그아웃</Button> */}
         </Container>
       </Header>
     </>
