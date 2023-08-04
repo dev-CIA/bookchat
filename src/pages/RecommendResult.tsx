@@ -1,21 +1,5 @@
-import {
-  createStyles,
-  Image,
-  Text,
-  Group,
-  Button,
-  getStylesRef,
-  rem,
-  Title,
-  Container,
-  Paper,
-  Card,
-  Flex,
-  Space,
-  Divider,
-} from '@mantine/core';
+import { createStyles, Text, Group, Button, rem, Title, Paper, Flex } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
-import { IconStar } from '@tabler/icons-react';
 import { IconSlash } from '@tabler/icons-react';
 
 const mockData = {
@@ -43,10 +27,6 @@ const mockData = {
 const useStyles = createStyles(theme => ({
   resultCard: {
     height: rem(440),
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'space-around',
-    // alignItems: 'center',
     backgroundImage: theme.fn.gradient(),
   },
 
