@@ -1,7 +1,13 @@
 import React from 'react';
-import { Button, Paper, TextInput, Title, Text, Flex, Space, Box, Container } from '@mantine/core';
-import { WEATHER, MOOD } from '../../constants';
-import { Selector } from '.';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Paper, Title, Text, Flex, Container } from '@mantine/core';
+import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
+import { WEATHER, MOOD } from '../constants';
+import { FormInput } from '../components/recommend';
+import { partialConditionForm } from '../schema';
+import { sendCondition } from '../api/openai';
+import { useNavigate } from 'react-router-dom';
 
 const mockData = [
   {
@@ -162,14 +168,40 @@ const mockData = [
   },
 ];
 
-const UserForm = () => {
+type FormData = z.infer<typeof partialConditionForm>;
+
+const getResultData = (data: string) => {
+  const result = { firstComment: '', books: [{}], lastComment: '' };
+
+  const initialData = data.split('\n');
+  initialData.forEach((data, idx) => {
+    if (idx < 2 && !data.includes('id') && !data.includes('title') && data !== '') result.firstComment = data;
+    if (data.includes('id') && data.includes('title')) {
+      let firstIdx = data.indexOf('{');
+      let lastIdx = data.indexOf('}');
+      result.books.push(JSON.parse(data.slice(firstIdx, lastIdx + 1)));
+    }
+    if (idx > 2 && !data.includes('id') && !data.includes('title') && data !== '') result.lastComment = data;
+  });
+  result.books.shift();
+
+  return result;
+};
+
+const RecommendForm = () => {
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
+  const navigate = useNavigate();
+  const methods = useForm<FormData>({
+    resolver: zodResolver(partialConditionForm),
+    defaultValues: { book: '', weather: '', mood: '', other: '' },
+  });
+
   React.useEffect(() => {
     const datas = mockData.map(data => `${data.title} / ${data.author}`).sort((a, b) => a.localeCompare(b));
     setLibraryData(datas);
   }, []);
 
-  const selectors = [
+  const formInputs = [
     {
       id: 'book',
       datas: libraryData,
@@ -178,7 +210,26 @@ const UserForm = () => {
     },
     { id: 'weather', datas: WEATHER, title: '날씨에 어울리는 책 추천받기', placeholder: '날씨를 고르세요' },
     { id: 'mood', datas: MOOD, title: '내 기분에 맞는 책 추천받기', placeholder: '기분을 고르세요' },
+    {
+      id: 'other',
+      datas: [''],
+      title: '기타 조건 입력하기',
+      placeholder: '더 추가하고 싶은 조건을 명확하게 입력해주세요',
+    },
   ];
+
+  const onSubmit: SubmitHandler<FormData> = async formDatas => {
+    console.log(formDatas);
+    try {
+      const { data } = await sendCondition(formDatas);
+
+      const resultData = getResultData(data);
+
+      navigate('result', { state: resultData });
+    } catch (error: any) {
+      console.error('요청 실패: ', error.message);
+    }
+  };
 
   return (
     <Container mt={10}>
@@ -189,27 +240,25 @@ const UserForm = () => {
         * 다음 항목 중 하나 이상을 작성해주세요.
       </Text>
       <Paper shadow="sm" p="md" radius={'md'} withBorder>
-        <form>
-          {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
-          {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
+            {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
 
-          <Flex direction={'column'} gap={4}>
-            {selectors.map(selector => (
-              <Box key={selector.id}>
-                <Selector {...selector} />
-                <Space h={'sm'} />
-              </Box>
-            ))}
-            <Title size={20}>기타 조건 입력하기</Title>
-            <TextInput aria-label="기타 조건" placeholder="더 추가하고 싶은 조건을 명확하게 입력해주세요" />
-            <Space h={'sm'} />
+            <Flex direction={'column'} gap={4}>
+              {formInputs.map(input => (
+                <FormInput key={input.id} {...input} />
+              ))}
 
-            <Button type="submit">추천받기</Button>
-          </Flex>
-        </form>
+              <Button type="submit" disabled={!methods.formState.isDirty}>
+                추천받기
+              </Button>
+            </Flex>
+          </form>
+        </FormProvider>
       </Paper>
     </Container>
   );
 };
 
-export default UserForm;
+export default RecommendForm;

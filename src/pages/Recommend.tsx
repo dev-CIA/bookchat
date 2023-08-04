@@ -1,11 +1,11 @@
 import React from 'react';
-import { UserForm } from '../components/recommend';
+import { Outlet } from 'react-router-dom';
 
 const Recommend = () => {
   console.log();
   return (
     <>
-      <UserForm />
+      <Outlet />
     </>
   );
 };

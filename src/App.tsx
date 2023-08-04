@@ -26,6 +26,7 @@ function App() {
             xl: '90em', // 1440px
             xxl: '120em', // 1920px
           },
+          defaultGradient: { from: 'blue.4', to: 'teal.4', deg: 45 },
         }}
         withCSSVariables
         withGlobalStyles

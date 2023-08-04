@@ -1,3 +1,2 @@
-export { default as UserForm } from './UserForm';
-export { default as Result } from './Result';
-export { default as Selector } from './Selector';
+export { default as FormInput } from './FormInput';
+export { default as ResultCard } from './ResultCard';
