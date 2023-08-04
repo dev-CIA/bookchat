@@ -1,6 +1,7 @@
 import { Text, Group, Button, Title, Flex } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { ResultCard } from '../components/recommend';
+import { Link } from 'react-router-dom';
 
 const mockData = {
   comment: '맑은 날씨에 추리 소설을 추천해드리겠습니다. 제 추천은 다음과 같습니다.',
@@ -39,7 +40,7 @@ const RecommendResult = () => {
         {slides}
       </Carousel>
       <Group>
-        <Button type="button" variant="light">
+        <Button component={Link} to="/recommend" variant="light">
           다른 조건으로 추천받기
         </Button>
         {/* <Button>같은 조건으로 추천 더 받기</Button> */}
