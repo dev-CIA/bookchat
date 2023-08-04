@@ -95,7 +95,9 @@ const RecommendResult = () => {
         {slides}
       </Carousel>
       <Group>
-        <Button type="button">다른 조건으로 추천받기</Button>
+        <Button type="button" variant="light">
+          다른 조건으로 추천받기
+        </Button>
         {/* <Button>같은 조건으로 추천 더 받기</Button> */}
       </Group>
     </Flex>
