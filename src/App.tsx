@@ -15,6 +15,7 @@ function App() {
               boxSizing: 'border-box',
               margin: '0',
               padding: '0',
+              whiteSpace: 'pre-line',
             },
           }),
           primaryColor: 'teal',
