@@ -12,10 +12,6 @@ const links = {
       link: '/mylibrary',
       label: '내 서재',
     },
-    {
-      link: '/profile',
-      label: '관리',
-    },
   ],
 };
 
