@@ -27,7 +27,7 @@ const RecommendResult = () => {
       <Carousel miw={300} maw={500} mx={'auto'} slideGap="xl" align="center" withIndicators loop>
         {slides}
       </Carousel>
-      <Text>{resultData.lastComment}</Text>
+      <Text>{resultData.lastComment.replace('. ', '.\n')}</Text>
       <Group>
         <Button component={Link} to="/recommend" variant="light">
           다른 조건으로 추천받기
