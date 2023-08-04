@@ -25,6 +25,7 @@ const useStyles = createStyles(theme => ({
     marginBottom: 8,
     borderRadius: 4,
     maxWidth: '70%',
+    whiteSpace: 'pre-line',
   },
   userMessage: {
     flexDirection: 'row-reverse',

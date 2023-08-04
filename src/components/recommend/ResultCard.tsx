@@ -22,6 +22,10 @@ const useStyles = createStyles(theme => ({
     textTransform: 'uppercase',
   },
 
+  reason: {
+    whiteSpace: 'pre-line',
+  },
+
   slash: {
     color: 'white',
     strokeWidth: rem(1),
@@ -49,8 +53,8 @@ const ResultCard = ({ title, author, reason }: ResultCardProps) => {
           {title}
         </Title>
         <IconSlash className={classes.slash} />
-        <Text color="white" mt={'sm'}>
-          {reason}
+        <Text className={classes.reason} color="white" mt={'sm'}>
+          {reason.replace('. ', '.\n')}
         </Text>
       </Flex>
     </Paper>
