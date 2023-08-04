@@ -1,5 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BookChat, MyLibrary, Profile, Recommend, Root, RecommendResult, RecommendForm } from '../pages';
+import {
+  BookChat,
+  MyLibrary,
+  Profile,
+  Recommend,
+  Root,
+  RecommendResult,
+  RecommendForm,
+  Signin,
+  Signup,
+} from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +43,14 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
     ],
+  },
+  {
+    path: '/signin',
+    element: <Signin />,
+  },
+  {
+    path: '/signup',
+    element: <Signup />,
   },
 ]);
 
