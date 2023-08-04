@@ -114,6 +114,10 @@ const RecommendResult = () => {
       <Carousel miw={300} maw={500} mx={'auto'} slideGap="xl" align="center" withIndicators loop>
         {slides}
       </Carousel>
+      <Group>
+        <Button type="button">다른 조건으로 추천받기</Button>
+        {/* <Button>같은 조건으로 추천 더 받기</Button> */}
+      </Group>
     </Flex>
   );
 };
