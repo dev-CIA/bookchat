@@ -24,10 +24,10 @@ const RecommendResult = () => {
     <Flex direction={'column'} align={'center'} gap={20} mt={20}>
       <Title>Book Chat이 추천합니다!</Title>
       <Text>{resultData.firstComment}</Text>
-      <Text>{resultData.lastComment}</Text>
       <Carousel miw={300} maw={500} mx={'auto'} slideGap="xl" align="center" withIndicators loop>
         {slides}
       </Carousel>
+      <Text>{resultData.lastComment}</Text>
       <Group>
         <Button component={Link} to="/recommend" variant="light">
           다른 조건으로 추천받기
