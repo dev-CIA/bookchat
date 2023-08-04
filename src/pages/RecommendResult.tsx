@@ -3,11 +3,18 @@ import { Carousel } from '@mantine/carousel';
 import { ResultCard } from '../components/recommend';
 import { Link, useLocation } from 'react-router-dom';
 
+interface dataProp {
+  id: number;
+  title: string;
+  author: string;
+  reason: string;
+}
+
 const RecommendResult = () => {
   const location = useLocation();
   const resultData = location.state;
 
-  const slides = resultData.books.map(data => (
+  const slides = resultData.books.map((data: dataProp) => (
     <Carousel.Slide key={data.title}>
       <ResultCard {...data} />
     </Carousel.Slide>
