@@ -7,6 +7,7 @@ import { WEATHER, MOOD } from '../constants';
 import { FormInput } from '../components/recommend';
 import { partialConditionForm } from '../schema';
 import { sendCondition } from '../api/openai';
+import { useNavigate } from 'react-router-dom';
 
 const mockData = [
   {
@@ -169,8 +170,27 @@ const mockData = [
 
 type FormData = z.infer<typeof partialConditionForm>;
 
+const getResultData = (data: string) => {
+  const result = { firstComment: '', books: [{}], lastComment: '' };
+
+  const initialData = data.split('\n');
+  initialData.forEach((data, idx) => {
+    if (idx < 2 && !data.includes('id') && !data.includes('title') && data !== '') result.firstComment = data;
+    if (data.includes('id') && data.includes('title')) {
+      let firstIdx = data.indexOf('{');
+      let lastIdx = data.indexOf('}');
+      result.books.push(JSON.parse(data.slice(firstIdx, lastIdx + 1)));
+    }
+    if (idx > 2 && !data.includes('id') && !data.includes('title') && data !== '') result.lastComment = data;
+  });
+  result.books.shift();
+
+  return result;
+};
+
 const RecommendForm = () => {
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
+  const navigate = useNavigate();
   const methods = useForm<FormData>({
     resolver: zodResolver(partialConditionForm),
     defaultValues: { book: '', weather: '', mood: '', other: '' },
@@ -203,7 +223,9 @@ const RecommendForm = () => {
     try {
       const { data } = await sendCondition(formDatas);
 
-      console.log(data);
+      const resultData = getResultData(data);
+
+      navigate('result', { state: resultData });
     } catch (error: any) {
       console.error('요청 실패: ', error.message);
     }
