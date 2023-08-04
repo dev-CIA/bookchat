@@ -181,7 +181,7 @@ const RecommendForm = () => {
     setLibraryData(datas);
   }, []);
 
-  const selectors = [
+  const formInputs = [
     {
       id: 'book',
       datas: libraryData,
@@ -224,8 +224,8 @@ const RecommendForm = () => {
             {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
 
             <Flex direction={'column'} gap={4}>
-              {selectors.map(selector => (
-                <FormInput key={selector.id} {...selector} />
+              {formInputs.map(input => (
+                <FormInput key={input.id} {...input} />
               ))}
 
               <Button type="submit" disabled={!methods.formState.isDirty}>
