@@ -20,6 +20,10 @@ const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
   const { classes } = useStyles();
   const { control } = useFormContext();
 
+  const preventSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') e.preventDefault();
+  };
+
   return (
     <>
       {id !== 'other' ? (
@@ -28,6 +32,7 @@ const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
           name={id}
           data={datas}
           label={title}
+          onKeyDown={preventSubmit}
           placeholder={placeholder}
           searchable
           clearable
@@ -43,6 +48,7 @@ const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
           control={control}
           label={title}
           placeholder={placeholder}
+          onKeyDown={preventSubmit}
         />
       )}
       <Space h={'sm'} />
