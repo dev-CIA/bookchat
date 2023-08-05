@@ -63,7 +63,7 @@ interface MainHeaderProps {
 
 const MainHeader = ({ mainLinks }: MainHeaderProps) => {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useRecoilState(menuState);
+  const [activeMenu, setActiveMenu] = useRecoilState(menuState);
 
   const mainItems = mainLinks.map((item, index) => (
     <Anchor<'button'>
@@ -73,9 +73,9 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
       className={classes.anchor}
       onClick={event => {
         event.preventDefault();
-        setActive(index + '');
+        setActiveMenu(index + '');
       }}>
-      <Link to={item.link} className={cx(classes.mainLink, { [classes.mainLinkActive]: index === +active })}>
+      <Link to={item.link} className={cx(classes.mainLink, { [classes.mainLinkActive]: index === +activeMenu })}>
         {item.label}
       </Link>
     </Anchor>
@@ -88,8 +88,8 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
           <div className={classes.links}>
             <Group spacing={10}>{mainItems}</Group>
           </div>
-          <UserMenu />
-          {/* <Button size="xs">로그아웃</Button> */}
+          {/* <UserMenu /> */}
+          <Button size="xs">로그인</Button>
         </Container>
       </Header>
     </>
