@@ -1,6 +1,6 @@
-import { ActionIcon, Header, Title, createStyles } from '@mantine/core';
+import { Header, Title, createStyles } from '@mantine/core';
 import { sizes } from '../../constants';
-import { IconSettings } from '@tabler/icons-react';
+import { UserMenu } from '.';
 
 const useStyles = createStyles(() => ({
   header: {
@@ -17,9 +17,7 @@ const MobileHeader = () => {
   return (
     <Header className={classes.header} height={sizes.MOBILE_HEADER_HEIGHT} px={16}>
       <Title size={20}>subTitle</Title>
-      <ActionIcon>
-        <IconSettings size={30} />
-      </ActionIcon>
+      <UserMenu />
     </Header>
   );
 };

@@ -1,13 +1,15 @@
-import { Menu, UnstyledButton, Avatar } from '@mantine/core';
+import { Menu, UnstyledButton, Avatar, ActionIcon } from '@mantine/core';
 import { IconSettings, IconLogout } from '@tabler/icons-react';
 import { useSetRecoilState } from 'recoil';
 import { isLoginState } from '../../recoil/atoms';
 import { singout } from '../../api';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '@mantine/hooks';
 
 const UserMenu = () => {
   const setIsLogin = useSetRecoilState(isLoginState);
   const navigate = useNavigate();
+  const mediumScreen = useMediaQuery('(min-width: 64em');
 
   const handleClick = async () => {
     const { data } = await singout();
@@ -27,9 +29,15 @@ const UserMenu = () => {
       withArrow
       arrowPosition="center">
       <Menu.Target>
-        <UnstyledButton>
-          <Avatar radius="xl" color="teal" />
-        </UnstyledButton>
+        {mediumScreen ? (
+          <UnstyledButton>
+            <Avatar radius="xl" color="teal" />
+          </UnstyledButton>
+        ) : (
+          <ActionIcon>
+            <IconSettings size={30} />
+          </ActionIcon>
+        )}
       </Menu.Target>
 
       <Menu.Dropdown>
