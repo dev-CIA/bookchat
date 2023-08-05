@@ -2,9 +2,9 @@ import { Button, Paper, PaperProps, Text, Stack, Group, Anchor, Flex, Image } fr
 import { useToggle, upperFirst } from '@mantine/hooks';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { menuState } from '../recoil/atoms';
+import { menuState, userState } from '../recoil/atoms';
 import { signin } from '../api/auth';
 import { z } from 'zod';
 import { signinSchema, signupSchema } from '../schema';
@@ -22,14 +22,18 @@ const AuthForm = (props: PaperProps) => {
       confirmPassword: '',
     },
   });
+  const navigate = useNavigate();
   const setActiveMenu = useSetRecoilState(menuState);
+  const setUser = useSetRecoilState(userState);
 
   const submitForm = async (authForm: signinFormProp | signupFormProp) => {
     console.log(authForm);
     try {
       if (type === 'login') {
         const { data } = await signin(authForm);
-        console.log(data);
+
+        setUser(data);
+        navigate('/');
       }
     } catch (error: any) {
       console.error('로그인 실패: ', error.message);
