@@ -3,9 +3,11 @@ import { IconSettings, IconLogout } from '@tabler/icons-react';
 import { useSetRecoilState } from 'recoil';
 import { isLoginState } from '../../recoil/atoms';
 import { singout } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 const UserMenu = () => {
   const setIsLogin = useSetRecoilState(isLoginState);
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     const { data } = await singout();
@@ -13,6 +15,7 @@ const UserMenu = () => {
     localStorage.removeItem('userState');
     localStorage.removeItem('menuState');
     setIsLogin(data.isLogin);
+    navigate('/chat');
   };
 
   return (
