@@ -28,7 +28,7 @@ const AuthForm = (props: PaperProps) => {
   const setIsLogin = useSetRecoilState(isLoginState);
 
   const submitForm = async (authForm: signinFormProp | signupFormProp) => {
-    console.log(authForm);
+    console.log(authForm.email);
     try {
       if (type === 'login') {
         const { data } = await signin(authForm);
