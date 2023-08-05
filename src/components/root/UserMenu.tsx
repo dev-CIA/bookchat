@@ -20,6 +20,10 @@ const UserMenu = () => {
     navigate('/chat');
   };
 
+  const handleSignin = () => {
+    navigate('/auth');
+  };
+
   return (
     <Menu
       shadow="md"
@@ -55,7 +59,7 @@ const UserMenu = () => {
             </Menu.Item>
           </>
         ) : (
-          <Menu.Item color="teal" icon={<IconLogin size={14} />} onClick={handleClick}>
+          <Menu.Item color="teal" icon={<IconLogin size={14} />} onClick={handleSignin}>
             로그인
           </Menu.Item>
         )}
