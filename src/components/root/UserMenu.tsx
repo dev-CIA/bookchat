@@ -11,7 +11,7 @@ const UserMenu = () => {
   const navigate = useNavigate();
   const mediumScreen = useMediaQuery('(min-width: 64em');
 
-  const handleClick = async () => {
+  const handleSignout = async () => {
     const { data } = await singout();
 
     localStorage.removeItem('userState');
@@ -50,7 +50,7 @@ const UserMenu = () => {
 
             <Menu.Label></Menu.Label>
 
-            <Menu.Item color="red" icon={<IconLogout size={14} />} onClick={handleClick}>
+            <Menu.Item color="red" icon={<IconLogout size={14} />} onClick={handleSignout}>
               로그아웃
             </Menu.Item>
           </>
