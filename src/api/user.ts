@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const config = {
-  baseURL: 'http://localhost:3000/api/users',
+  baseURL: 'https://www.mybookchat.com/api/users',
 };
 
 const getMyLibrary = async (email: string) => await axios.get(`/${email}/library`, config);

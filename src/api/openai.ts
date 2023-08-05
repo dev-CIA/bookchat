@@ -12,7 +12,7 @@ interface Message {
 type FormData = z.infer<typeof partialConditionForm>;
 
 const config = {
-  baseURL: 'http://localhost:3000/api/ai',
+  baseURL: 'https://www.mybookchat.com/api/ai',
 };
 
 const updateChat = async (message: Message) =>

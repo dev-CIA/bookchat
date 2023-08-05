@@ -7,7 +7,7 @@ type signinForm = z.infer<typeof signinSchema>;
 type signupForm = z.infer<typeof signupSchema>;
 
 const config = {
-  baseURL: 'http://localhost:3000/api/auth',
+  baseURL: 'https://www.mybookchat.com/api/auth',
 };
 
 const signin = async (data: signinForm) => await axios.post(`${URL.SIGN_IN}`, { ...data }, config);
