@@ -4,7 +4,7 @@ import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { menuState, userState } from '../recoil/atoms';
+import { menuState, userState, isLoginState } from '../recoil/atoms';
 import { signin } from '../api/auth';
 import { z } from 'zod';
 import { signinSchema, signupSchema } from '../schema';
@@ -25,6 +25,7 @@ const AuthForm = (props: PaperProps) => {
   const navigate = useNavigate();
   const setActiveMenu = useSetRecoilState(menuState);
   const setUser = useSetRecoilState(userState);
+  const setIsLogin = useSetRecoilState(isLoginState);
 
   const submitForm = async (authForm: signinFormProp | signupFormProp) => {
     console.log(authForm);
@@ -33,6 +34,7 @@ const AuthForm = (props: PaperProps) => {
         const { data } = await signin(authForm);
 
         setUser(data);
+        setIsLogin(true);
         navigate('/');
       }
     } catch (error: any) {
