@@ -218,7 +218,7 @@ const RecommendForm = () => {
     },
   ];
 
-  const onSubmit: SubmitHandler<FormData> = async formDatas => {
+  const submitForm: SubmitHandler<FormData> = async formDatas => {
     console.log(formDatas);
     try {
       const { data } = await sendCondition(formDatas);
@@ -241,7 +241,7 @@ const RecommendForm = () => {
       </Text>
       <Paper shadow="sm" p="md" radius={'md'} withBorder>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <form onSubmit={methods.handleSubmit(submitForm)}>
             {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
             {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
 
