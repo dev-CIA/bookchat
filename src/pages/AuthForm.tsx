@@ -1,16 +1,23 @@
-import { Button, Paper, PaperProps, Text, Stack, Group, Anchor, Flex, Image, createStyles } from '@mantine/core';
+import { Button, Paper, PaperProps, Text, Stack, Group, Anchor, Flex, Image } from '@mantine/core';
 import { useToggle, upperFirst } from '@mantine/hooks';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { menuState } from '../recoil/atoms';
 
 const AuthForm = (props: PaperProps) => {
   const [type, toggle] = useToggle(['login', 'register']);
   const { control } = useForm();
+  const setActiveMenu = useSetRecoilState(menuState);
 
   return (
     <Paper radius="md" p="xl" withBorder {...props} miw={350} maw={500} mx={'auto'} mt={50}>
-      <Link to={'/'}>
+      <Link
+        to={'/'}
+        onClick={() => {
+          setActiveMenu('0');
+        }}>
         <Image width={90} height={90} src="./logo/bookchatLogo.png" alt="logo" mx={'auto'} />
       </Link>
       <Text size="lg" weight={500} align="center">
