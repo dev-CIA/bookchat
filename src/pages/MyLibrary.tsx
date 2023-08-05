@@ -2,6 +2,9 @@ import { Books } from '../components/myLibrary';
 import { ActionIcon, TextInput, createStyles } from '@mantine/core';
 import { IconBook, IconSearch } from '@tabler/icons-react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { isLoginState } from '../recoil/atoms';
 
 const useStyles = createStyles(() => ({
   form: {
@@ -13,6 +16,14 @@ const useStyles = createStyles(() => ({
 
 const MyLibrary = () => {
   const { classes } = useStyles();
+  const navigate = useNavigate();
+  const isLogin = useRecoilValue(isLoginState);
+
+  React.useEffect(() => {
+    if (!isLogin) {
+      navigate('/auth');
+    }
+  }, []);
 
   return (
     <>
