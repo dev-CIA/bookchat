@@ -1,8 +1,8 @@
 import { createStyles, Header, Container, Anchor, Group, rem, Button } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { sizes } from '../../constants';
-import { useRecoilState } from 'recoil';
-import { menuState } from '../../recoil/atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isLoginState, menuState } from '../../recoil/atoms';
 import { UserMenu } from '.';
 
 const useStyles = createStyles(theme => ({
@@ -64,6 +64,7 @@ interface MainHeaderProps {
 const MainHeader = ({ mainLinks }: MainHeaderProps) => {
   const { classes, cx } = useStyles();
   const [activeMenu, setActiveMenu] = useRecoilState(menuState);
+  const isLogin = useRecoilValue(isLoginState);
 
   const mainItems = mainLinks.map((item, index) => (
     <Anchor<'button'>
@@ -88,10 +89,13 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
           <div className={classes.links}>
             <Group spacing={10}>{mainItems}</Group>
           </div>
-          {/* <UserMenu /> */}
-          <Button size="xs" component={Link} to="/auth">
-            로그인
-          </Button>
+          {isLogin ? (
+            <UserMenu />
+          ) : (
+            <Button size="xs" component={Link} to="/auth">
+              로그인
+            </Button>
+          )}
         </Container>
       </Header>
     </>
