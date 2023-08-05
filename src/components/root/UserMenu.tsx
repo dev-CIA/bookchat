@@ -1,21 +1,27 @@
-import { Menu, UnstyledButton, Avatar } from '@mantine/core';
-import { IconSettings, IconLogout } from '@tabler/icons-react';
-import { useSetRecoilState } from 'recoil';
+import { Menu, UnstyledButton, Avatar, ActionIcon } from '@mantine/core';
+import { IconSettings, IconLogout, IconLogin } from '@tabler/icons-react';
+import { useRecoilState } from 'recoil';
 import { isLoginState } from '../../recoil/atoms';
 import { singout } from '../../api';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '@mantine/hooks';
 
 const UserMenu = () => {
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState);
   const navigate = useNavigate();
+  const mediumScreen = useMediaQuery('(min-width: 64em');
 
-  const handleClick = async () => {
+  const handleSignout = async () => {
     const { data } = await singout();
 
     localStorage.removeItem('userState');
     localStorage.removeItem('menuState');
     setIsLogin(data.isLogin);
     navigate('/chat');
+  };
+
+  const handleSignin = () => {
+    navigate('/auth');
   };
 
   return (
@@ -27,21 +33,36 @@ const UserMenu = () => {
       withArrow
       arrowPosition="center">
       <Menu.Target>
-        <UnstyledButton>
-          <Avatar radius="xl" color="teal" />
-        </UnstyledButton>
+        {mediumScreen ? (
+          <UnstyledButton>
+            <Avatar radius="xl" color="teal" />
+          </UnstyledButton>
+        ) : (
+          <ActionIcon>
+            <IconSettings size={30} />
+          </ActionIcon>
+        )}
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Label>김아무개씨</Menu.Label>
-        <Menu.Item icon={<IconSettings size={14} />}>설정</Menu.Item>
+        {isLogin ? (
+          <>
+            <Menu.Label>김아무개씨</Menu.Label>
+            <Menu.Item icon={<IconSettings size={14} />}>설정</Menu.Item>
 
-        <Menu.Divider />
+            <Menu.Divider />
 
-        <Menu.Label></Menu.Label>
-        <Menu.Item color="red" icon={<IconLogout size={14} />} onClick={handleClick}>
-          로그아웃
-        </Menu.Item>
+            <Menu.Label></Menu.Label>
+
+            <Menu.Item color="red" icon={<IconLogout size={14} />} onClick={handleSignout}>
+              로그아웃
+            </Menu.Item>
+          </>
+        ) : (
+          <Menu.Item color="teal" icon={<IconLogin size={14} />} onClick={handleSignin}>
+            로그인
+          </Menu.Item>
+        )}
       </Menu.Dropdown>
     </Menu>
   );
