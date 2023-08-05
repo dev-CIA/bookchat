@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { menuState, userState, isLoginState } from '../recoil/atoms';
-import { signin } from '../api/auth';
+import { signin } from '../api';
 import { z } from 'zod';
 import { signinSchema, signupSchema } from '../schema';
 
