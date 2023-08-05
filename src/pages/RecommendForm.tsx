@@ -10,7 +10,7 @@ import { sendCondition } from '../api/openai';
 import { useNavigate } from 'react-router-dom';
 import { getMyLibrary } from '../api';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../recoil/atoms';
+import { isLoginState, userState } from '../recoil/atoms';
 
 type FormData = z.infer<typeof partialConditionForm>;
 
@@ -48,23 +48,31 @@ const RecommendForm = () => {
   const [error, setError] = React.useState();
 
   const navigate = useNavigate();
+  const isLogin = useRecoilValue(isLoginState);
   const methods = useForm<FormData>({
     resolver: zodResolver(partialConditionForm),
     defaultValues: { book: '', weather: '', mood: '', other: '' },
   });
 
+  React.useEffect(() => {}, []);
+
   React.useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
-        const { data } = await getMyLibrary(email);
-        if (data.length) {
-          const datas = data
-            .map((item: dataProp) => `${item.title} / ${item.author}`)
-            .sort((a: string, b: string) => a.localeCompare(b));
-          setLibraryData(datas);
+        if (!isLogin) {
+          setLibraryData([]);
         }
-        if (!data.length) setLibraryData([]);
+        if (isLogin) {
+          const { data } = await getMyLibrary(email);
+          if (data.length) {
+            const datas = data
+              .map((item: dataProp) => `${item.title} / ${item.author}`)
+              .sort((a: string, b: string) => a.localeCompare(b));
+            setLibraryData(datas);
+          }
+          if (!data.length) setLibraryData([]);
+        }
       } catch (e: any) {
         setError(e);
       } finally {
