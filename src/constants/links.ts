@@ -2,7 +2,7 @@ const links = {
   mainLinks: [
     {
       link: '/chat',
-      label: 'Book Chat',
+      label: 'BOOK CHAT',
     },
     {
       link: '/recommend',
