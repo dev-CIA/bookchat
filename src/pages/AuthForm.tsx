@@ -35,6 +35,10 @@ const AuthForm = (props: PaperProps) => {
             radius="md"
           />
 
+          {type === 'register' && (
+            <TextInput name="nickname" control={control} label="닉네임" placeholder="Your nickname" radius="md" />
+          )}
+
           <PasswordInput
             required
             name="password"
