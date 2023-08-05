@@ -5,11 +5,36 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { menuState } from '../recoil/atoms';
+import { signin } from '../api/auth';
+import { z } from 'zod';
+import { signinSchema, signupSchema } from '../schema';
+
+type signinFormProp = z.infer<typeof signinSchema>;
+type signupFormProp = z.infer<typeof signupSchema>;
 
 const AuthForm = (props: PaperProps) => {
   const [type, toggle] = useToggle(['login', 'register']);
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm<signinFormProp | signupFormProp>({
+    defaultValues: {
+      email: '',
+      nickname: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
   const setActiveMenu = useSetRecoilState(menuState);
+
+  const submitForm = async (authForm: signinFormProp | signupFormProp) => {
+    console.log(authForm);
+    try {
+      if (type === 'login') {
+        const { data } = await signin(authForm);
+        console.log(data);
+      }
+    } catch (error: any) {
+      console.error('로그인 실패: ', error.message);
+    }
+  };
 
   return (
     <Paper radius="md" p="xl" withBorder {...props} miw={350} maw={500} mx={'auto'} mt={50}>
@@ -24,7 +49,7 @@ const AuthForm = (props: PaperProps) => {
         Book Chat에 오신 것을 환영합니다.
       </Text>
 
-      <form>
+      <form onSubmit={handleSubmit(submitForm)}>
         <Stack>
           <TextInput
             required
@@ -51,7 +76,7 @@ const AuthForm = (props: PaperProps) => {
           {type === 'register' && (
             <PasswordInput
               required
-              name="passwordConfirm"
+              name="confirmPassword"
               control={control}
               label="비밀번호 확인"
               placeholder="password"
