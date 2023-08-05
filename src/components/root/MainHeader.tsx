@@ -89,7 +89,9 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
             <Group spacing={10}>{mainItems}</Group>
           </div>
           {/* <UserMenu /> */}
-          <Button size="xs">로그인</Button>
+          <Button size="xs" component={Link} to="/auth">
+            로그인
+          </Button>
         </Container>
       </Header>
     </>
