@@ -1,7 +1,7 @@
 import React from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Paper, Title, Text, Flex, Container } from '@mantine/core';
+import { Button, Paper, Title, Text, Flex, Container, Loader } from '@mantine/core';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { WEATHER, MOOD } from '../constants';
 import { FormInput } from '../components/recommend';
@@ -42,6 +42,7 @@ const getResultData = (data: string) => {
 
 const RecommendForm = () => {
   const email = useRecoilValue(userState).email;
+  const [waitingResult, setWaitingResult] = React.useState(false);
   const [libraryData, setLibraryData] = React.useState<string[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState();
@@ -94,6 +95,8 @@ const RecommendForm = () => {
 
   const submitForm: SubmitHandler<FormData> = async formDatas => {
     console.log(formDatas);
+    setWaitingResult(true);
+
     try {
       const { data } = await sendCondition(formDatas);
 
@@ -102,6 +105,8 @@ const RecommendForm = () => {
       navigate('result', { state: resultData });
     } catch (error: any) {
       console.error('요청 실패: ', error.message);
+    } finally {
+      setWaitingResult(false);
     }
   };
 
@@ -113,24 +118,30 @@ const RecommendForm = () => {
       <Text fz={'md'} p={8} c={'dimmed'}>
         * 다음 항목 중 하나 이상을 작성해주세요.
       </Text>
-      <Paper shadow="sm" p="md" radius={'md'} withBorder>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(submitForm)}>
-            {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
-            {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
+      {waitingResult ? (
+        <Flex justify={'center'} mt={'10%'}>
+          <Loader size={80} />
+        </Flex>
+      ) : (
+        <Paper shadow="sm" p="md" radius={'md'} withBorder>
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(submitForm)}>
+              {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
+              {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
 
-            <Flex direction={'column'} gap={4}>
-              {formInputs.map(input => (
-                <FormInput key={input.id} {...input} />
-              ))}
+              <Flex direction={'column'} gap={4}>
+                {formInputs.map(input => (
+                  <FormInput key={input.id} {...input} />
+                ))}
 
-              <Button type="submit" disabled={!methods.formState.isDirty}>
-                추천받기
-              </Button>
-            </Flex>
-          </form>
-        </FormProvider>
-      </Paper>
+                <Button type="submit" disabled={!methods.formState.isDirty}>
+                  추천받기
+                </Button>
+              </Flex>
+            </form>
+          </FormProvider>
+        </Paper>
+      )}
     </Container>
   );
 };
