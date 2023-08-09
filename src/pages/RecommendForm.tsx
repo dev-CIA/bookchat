@@ -102,7 +102,6 @@ const RecommendForm = () => {
   ];
 
   const submitForm: SubmitHandler<FormData> = async formDatas => {
-    console.log(formDatas);
     setWaitingResult(true);
 
     try {

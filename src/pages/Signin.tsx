@@ -28,7 +28,6 @@ const Signin = (props: PaperProps) => {
   const navigate = useNavigate();
 
   const submitForm = async (authForm: signinFormProp) => {
-    console.log(authForm.email);
     try {
       const { data } = await signin(authForm);
 
