@@ -12,7 +12,7 @@ interface Message {
 type FormData = z.infer<typeof partialConditionForm>;
 
 const config = {
-  baseURL: 'https://port-0-bookchat-server-eg4e2alkjmi6t7.sel4.cloudtype.app/api/ai',
+  baseURL: `${import.meta.env.VITE_BASE_URL}/api/ai`,
 };
 
 const updateChat = async (message: Message) =>

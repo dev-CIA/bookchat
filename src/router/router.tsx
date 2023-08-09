@@ -1,5 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BookChat, MyLibrary, Profile, Recommend, Root, RecommendResult, RecommendForm, AuthForm } from '../pages';
+import {
+  BookChat,
+  MyLibrary,
+  Profile,
+  Recommend,
+  Root,
+  RecommendResult,
+  RecommendForm,
+  Signin,
+  Signup,
+} from '../pages';
+import AuthenticationGuard from '../guard/AuthenticationGuard';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'mylibrary',
-        element: <MyLibrary />,
+        element: <AuthenticationGuard redirectTo="/auth" element={<MyLibrary />} />,
       },
       {
         path: 'profile',
@@ -35,8 +46,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/auth',
-    element: <AuthForm />,
+    path: '/signin',
+    element: <Signin />,
+  },
+  {
+    path: '/signup',
+    element: <Signup />,
   },
 ]);
 
