@@ -8,11 +8,13 @@ import { signin } from '../api';
 import { z } from 'zod';
 import { signinSchema } from '../schema';
 import { SwitchForm } from '../components/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type signinFormProp = z.infer<typeof signinSchema>;
 
 const Signin = (props: PaperProps) => {
   const { control, handleSubmit } = useForm<signinFormProp>({
+    resolver: zodResolver(signinSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -64,6 +66,7 @@ const Signin = (props: PaperProps) => {
             required
             name="password"
             control={control}
+            description="비밀번호는 영문, 숫자, 특수문자(! @ # $ % & * ?)의 조합 8~20자리로 입력해주세요"
             label="비밀번호"
             placeholder="password"
             radius="md"
