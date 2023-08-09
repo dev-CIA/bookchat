@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'mylibrary',
-        element: <AuthenticationGuard redirectTo="/auth" element={<MyLibrary />} />,
+        element: <AuthenticationGuard redirectTo="/signin" element={<MyLibrary />} />,
       },
       {
         path: 'profile',
