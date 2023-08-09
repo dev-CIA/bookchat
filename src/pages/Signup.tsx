@@ -2,17 +2,17 @@ import { Paper, PaperProps, Stack } from '@mantine/core';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { userState, isLoginState } from '../recoil/atoms';
 import { singup } from '../api';
 import { z } from 'zod';
 import { signupSchema } from '../schema';
 import { SwitchForm, WelcomeLogo } from '../components/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type signupFormProp = z.infer<typeof signupSchema>;
 
 const Signup = (props: PaperProps) => {
   const { control, handleSubmit } = useForm<signupFormProp>({
+    resolver: zodResolver(signupSchema),
     defaultValues: {
       email: '',
       nickname: '',
@@ -21,8 +21,6 @@ const Signup = (props: PaperProps) => {
     },
   });
   const navigate = useNavigate();
-  const setUser = useSetRecoilState(userState);
-  const setIsLogin = useSetRecoilState(isLoginState);
 
   const submitForm = async (authForm: signupFormProp) => {
     console.log(authForm.email);
