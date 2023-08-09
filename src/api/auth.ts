@@ -17,4 +17,6 @@ const singup = async (data: signupForm) => await axios.post(`${URL.SIGN_UP}`, { 
 
 const singout = async () => await axios.get(`${URL.SIGN_OUT}`, config);
 
-export { signin, singup, singout };
+const verify = async () => await axios.get(`${URL.VERIFY}`, config);
+
+export { signin, singup, singout, verify };
