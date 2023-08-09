@@ -1,4 +1,4 @@
-import { Button, Paper, PaperProps, Text, Stack, Group, Image, Space } from '@mantine/core';
+import { Paper, PaperProps, Text, Stack, Image } from '@mantine/core';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { menuState, userState, isLoginState } from '../recoil/atoms';
 import { signin } from '../api';
 import { z } from 'zod';
 import { signinSchema } from '../schema';
+import { SwitchForm } from '../components/auth';
 
 type signinFormProp = z.infer<typeof signinSchema>;
 
@@ -68,19 +69,7 @@ const Signin = (props: PaperProps) => {
             radius="md"
           />
         </Stack>
-
-        <Group position="apart" mt="xl">
-          <Text display={'flex'} fz={'sm'} c={'dimmed'}>
-            아직 회원이 아니신가요?
-            <Space w={'xs'} />
-            <Text component={Link} to={'/signup'} td="underline" fs="italic">
-              회원가입하러 가기
-            </Text>
-          </Text>
-          <Button type="submit" radius="xl">
-            Login
-          </Button>
-        </Group>
+        <SwitchForm mode="signin" />
       </form>
     </Paper>
   );

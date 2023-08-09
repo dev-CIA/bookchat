@@ -1,18 +1,17 @@
-import { Button, Paper, PaperProps, Text, Stack, Group, Anchor, Flex, Image } from '@mantine/core';
-import { useToggle, upperFirst } from '@mantine/hooks';
+import { Paper, PaperProps, Text, Stack, Image } from '@mantine/core';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { menuState, userState, isLoginState } from '../recoil/atoms';
-import { signin, singup } from '../api';
+import { singup } from '../api';
 import { z } from 'zod';
 import { signupSchema } from '../schema';
+import { SwitchForm } from '../components/auth';
 
 type signupFormProp = z.infer<typeof signupSchema>;
 
 const Signup = (props: PaperProps) => {
-  const [type, toggle] = useToggle(['login', 'register']);
   const { control, handleSubmit } = useForm<signupFormProp>({
     defaultValues: {
       email: '',
@@ -70,31 +69,17 @@ const Signup = (props: PaperProps) => {
             radius="md"
           />
 
-          {type === 'register' && (
-            <PasswordInput
-              required
-              name="confirmPassword"
-              control={control}
-              label="비밀번호 확인"
-              placeholder="password"
-              radius="md"
-            />
-          )}
+          <PasswordInput
+            required
+            name="confirmPassword"
+            control={control}
+            label="비밀번호 확인"
+            placeholder="password"
+            radius="md"
+          />
         </Stack>
 
-        <Group position="apart" mt="xl">
-          <Anchor component="button" type="button" color="dimmed" onClick={() => toggle()} size="xs">
-            <Flex gap={4}>
-              이미 회원이신가요?
-              <Text td="underline" fs="italic">
-                Login하러 가기
-              </Text>
-            </Flex>
-          </Anchor>
-          <Button type="submit" radius="xl">
-            {upperFirst(type)}
-          </Button>
-        </Group>
+        <SwitchForm mode="signup" />
       </form>
     </Paper>
   );
