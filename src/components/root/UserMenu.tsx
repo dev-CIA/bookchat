@@ -21,7 +21,7 @@ const UserMenu = () => {
   };
 
   const handleSignin = () => {
-    navigate('/auth');
+    navigate('/signin');
   };
 
   return (
