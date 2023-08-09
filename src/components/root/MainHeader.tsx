@@ -92,7 +92,7 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
           {isLogin ? (
             <UserMenu />
           ) : (
-            <Button size="xs" component={Link} to="/auth">
+            <Button size="xs" component={Link} to="/signin">
               로그인
             </Button>
           )}
