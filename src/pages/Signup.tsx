@@ -6,6 +6,7 @@ import { singup } from '../api';
 import { z } from 'zod';
 import { signupSchema } from '../schema';
 import { SwitchForm, WelcomeLogo } from '../components/auth';
+import { notifications } from '@mantine/notifications';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 type signupFormProp = z.infer<typeof signupSchema>;
@@ -27,9 +28,19 @@ const Signup = (props: PaperProps) => {
     try {
       const { data } = await singup(authForm);
 
+      notifications.show({
+        title: '회원가입 성공',
+        message: `${data.nickname}님, BOOK CHAT에 오신 것을 환영합니다.`,
+      });
+
       navigate('/signin');
     } catch (error: any) {
       console.error('회원가입 실패: ', error.message);
+
+      notifications.show({
+        title: '회원가입 실패',
+        message: `${error.response.status === 409 ? error.response.data : '회원가입에 실패했습니다.'}.`,
+      });
     }
   };
 
