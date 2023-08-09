@@ -1,13 +1,13 @@
-import { Paper, PaperProps, Text, Stack, Image } from '@mantine/core';
+import { Paper, PaperProps, Stack } from '@mantine/core';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { menuState, userState, isLoginState } from '../recoil/atoms';
+import { userState, isLoginState } from '../recoil/atoms';
 import { singup } from '../api';
 import { z } from 'zod';
 import { signupSchema } from '../schema';
-import { SwitchForm } from '../components/auth';
+import { SwitchForm, WelcomeLogo } from '../components/auth';
 
 type signupFormProp = z.infer<typeof signupSchema>;
 
@@ -21,7 +21,6 @@ const Signup = (props: PaperProps) => {
     },
   });
   const navigate = useNavigate();
-  const setActiveMenu = useSetRecoilState(menuState);
   const setUser = useSetRecoilState(userState);
   const setIsLogin = useSetRecoilState(isLoginState);
 
@@ -29,24 +28,16 @@ const Signup = (props: PaperProps) => {
     console.log(authForm.email);
     try {
       const { data } = await singup(authForm);
+
+      navigate('/signin');
     } catch (error: any) {
-      console.error('로그인 실패: ', error.message);
+      console.error('회원가입 실패: ', error.message);
     }
   };
 
   return (
     <Paper radius="md" p="xl" withBorder {...props} miw={350} maw={500} mx={'auto'} mt={50}>
-      <Link
-        to={'/'}
-        onClick={() => {
-          setActiveMenu('0');
-        }}>
-        <Image width={90} height={90} src="./logo/bookchatLogo.png" alt="logo" mx={'auto'} />
-      </Link>
-      <Text size="lg" weight={500} align="center">
-        Book Chat에 오신 것을 환영합니다.
-      </Text>
-
+      <WelcomeLogo />
       <form onSubmit={handleSubmit(submitForm)}>
         <Stack>
           <TextInput
@@ -58,12 +49,13 @@ const Signup = (props: PaperProps) => {
             radius="md"
           />
 
-          <TextInput name="nickname" control={control} label="닉네임" placeholder="Your nickname" radius="md" />
+          <TextInput name="nickname" control={control} label="닉네임" placeholder="닉네임" radius="md" />
 
           <PasswordInput
             required
             name="password"
             control={control}
+            description="비밀번호는 영문, 숫자, 특수문자(! @ # $ % & * ?)의 조합 8~20자리로 입력해주세요"
             label="비밀번호"
             placeholder="password"
             radius="md"

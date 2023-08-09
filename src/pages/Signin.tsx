@@ -1,13 +1,13 @@
-import { Paper, PaperProps, Text, Stack, Image } from '@mantine/core';
+import { Paper, PaperProps, Stack } from '@mantine/core';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { menuState, userState, isLoginState } from '../recoil/atoms';
+import { userState, isLoginState } from '../recoil/atoms';
 import { signin } from '../api';
 import { z } from 'zod';
 import { signinSchema } from '../schema';
-import { SwitchForm } from '../components/auth';
+import { SwitchForm, WelcomeLogo } from '../components/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 type signinFormProp = z.infer<typeof signinSchema>;
@@ -21,7 +21,6 @@ const Signin = (props: PaperProps) => {
     },
   });
   const navigate = useNavigate();
-  const setActiveMenu = useSetRecoilState(menuState);
   const setUser = useSetRecoilState(userState);
   const setIsLogin = useSetRecoilState(isLoginState);
 
@@ -40,17 +39,7 @@ const Signin = (props: PaperProps) => {
 
   return (
     <Paper radius="md" p="xl" withBorder {...props} miw={350} maw={500} mx={'auto'} mt={50}>
-      <Link
-        to={'/'}
-        onClick={() => {
-          setActiveMenu('0');
-        }}>
-        <Image width={90} height={90} src="./logo/bookchatLogo.png" alt="logo" mx={'auto'} />
-      </Link>
-      <Text size="lg" weight={500} align="center">
-        Book Chat에 오신 것을 환영합니다.
-      </Text>
-
+      <WelcomeLogo />
       <form onSubmit={handleSubmit(submitForm)}>
         <Stack>
           <TextInput
