@@ -24,13 +24,12 @@ const Signup = (props: PaperProps) => {
   const navigate = useNavigate();
 
   const submitForm = async (authForm: signupFormProp) => {
-    console.log(authForm.email);
     try {
-      const { data } = await singup(authForm);
+      const { data: user } = await singup(authForm);
 
       notifications.show({
         title: '회원가입 성공',
-        message: `${data.nickname}님, BOOK CHAT에 오신 것을 환영합니다.`,
+        message: `${user.nickname}님, BOOK CHAT에 오신 것을 환영합니다.`,
       });
 
       navigate('/signin');
