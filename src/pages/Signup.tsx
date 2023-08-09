@@ -39,6 +39,7 @@ const Signup = (props: PaperProps) => {
       notifications.show({
         title: '회원가입 실패',
         message: `${error.response.status === 409 ? error.response.data : '회원가입에 실패했습니다.'}.`,
+        color: 'red',
       });
     }
   };
