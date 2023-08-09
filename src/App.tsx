@@ -2,6 +2,7 @@ import { RecoilRoot } from 'recoil';
 import { RouterProvider } from 'react-router-dom';
 import router from './router/router';
 import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         withCSSVariables
         withGlobalStyles
         withNormalizeCSS>
+        <Notifications />
         <RouterProvider router={router} />
       </MantineProvider>
     </RecoilRoot>
