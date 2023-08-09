@@ -8,6 +8,7 @@ type signupForm = z.infer<typeof signupSchema>;
 
 const config = {
   baseURL: `${import.meta.env.VITE_BASE_URL}/api/auth`,
+  withCredentials: true,
 };
 
 const signin = async (data: signinForm) => await axios.post(`${URL.SIGN_IN}`, { ...data }, config);
