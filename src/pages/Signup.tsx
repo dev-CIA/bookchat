@@ -32,7 +32,7 @@ const Signup = (props: PaperProps) => {
         message: `${user.nickname}님, BOOK CHAT에 오신 것을 환영합니다.`,
       });
 
-      navigate('/signin');
+      navigate('/signin', { state: user.email });
     } catch (error: any) {
       console.error('회원가입 실패: ', error.message);
 

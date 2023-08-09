@@ -1,7 +1,7 @@
 import { Paper, PaperProps, Stack } from '@mantine/core';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { userState, isLoginState } from '../recoil/atoms';
 import { signin } from '../api';
@@ -13,16 +13,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 type signinFormProp = z.infer<typeof signinSchema>;
 
 const Signin = (props: PaperProps) => {
+  const location = useLocation();
+  const emailInput = location.state;
+
   const { control, handleSubmit } = useForm<signinFormProp>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
-      email: '',
+      email: emailInput || '',
       password: '',
     },
   });
-  const navigate = useNavigate();
   const setUser = useSetRecoilState(userState);
   const setIsLogin = useSetRecoilState(isLoginState);
+  const navigate = useNavigate();
 
   const submitForm = async (authForm: signinFormProp) => {
     console.log(authForm.email);
