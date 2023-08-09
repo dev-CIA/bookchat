@@ -8,5 +8,6 @@ export { default as RecommendResult } from './RecommendResult';
 
 export { default as MyLibrary } from './MyLibrary';
 
-export { default as AuthForm } from './AuthForm';
+export { default as Signin } from './Signin';
+export { default as Signup } from './Signup';
 export { default as Profile } from './Profile';

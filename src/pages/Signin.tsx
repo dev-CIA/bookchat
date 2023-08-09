@@ -7,19 +7,16 @@ import { useSetRecoilState } from 'recoil';
 import { menuState, userState, isLoginState } from '../recoil/atoms';
 import { signin } from '../api';
 import { z } from 'zod';
-import { signinSchema, signupSchema } from '../schema';
+import { signinSchema } from '../schema';
 
 type signinFormProp = z.infer<typeof signinSchema>;
-type signupFormProp = z.infer<typeof signupSchema>;
 
-const AuthForm = (props: PaperProps) => {
+const Signin = (props: PaperProps) => {
   const [type, toggle] = useToggle(['login', 'register']);
-  const { control, handleSubmit } = useForm<signinFormProp | signupFormProp>({
+  const { control, handleSubmit } = useForm<signinFormProp>({
     defaultValues: {
       email: '',
-      nickname: '',
       password: '',
-      confirmPassword: '',
     },
   });
   const navigate = useNavigate();
@@ -27,16 +24,14 @@ const AuthForm = (props: PaperProps) => {
   const setUser = useSetRecoilState(userState);
   const setIsLogin = useSetRecoilState(isLoginState);
 
-  const submitForm = async (authForm: signinFormProp | signupFormProp) => {
+  const submitForm = async (authForm: signinFormProp) => {
     console.log(authForm.email);
     try {
-      if (type === 'login') {
-        const { data } = await signin(authForm);
+      const { data } = await signin(authForm);
 
-        setUser(data);
-        setIsLogin(true);
-        navigate('/');
-      }
+      setUser(data);
+      setIsLogin(true);
+      navigate('/');
     } catch (error: any) {
       console.error('로그인 실패: ', error.message);
     }
@@ -66,10 +61,6 @@ const AuthForm = (props: PaperProps) => {
             radius="md"
           />
 
-          {type === 'register' && (
-            <TextInput name="nickname" control={control} label="닉네임" placeholder="Your nickname" radius="md" />
-          )}
-
           <PasswordInput
             required
             name="password"
@@ -78,36 +69,16 @@ const AuthForm = (props: PaperProps) => {
             placeholder="password"
             radius="md"
           />
-
-          {type === 'register' && (
-            <PasswordInput
-              required
-              name="confirmPassword"
-              control={control}
-              label="비밀번호 확인"
-              placeholder="password"
-              radius="md"
-            />
-          )}
         </Stack>
 
         <Group position="apart" mt="xl">
           <Anchor component="button" type="button" color="dimmed" onClick={() => toggle()} size="xs">
-            {type === 'register' ? (
-              <Flex gap={4}>
-                이미 회원이신가요?
-                <Text td="underline" fs="italic">
-                  Login하러 가기
-                </Text>
-              </Flex>
-            ) : (
-              <Flex gap={4}>
-                아직 회원이 아니신가요?
-                <Text td="underline" fs="italic">
-                  회원가입하러 가기
-                </Text>
-              </Flex>
-            )}
+            <Flex gap={4}>
+              아직 회원이 아니신가요?
+              <Text td="underline" fs="italic">
+                회원가입하러 가기
+              </Text>
+            </Flex>
           </Anchor>
           <Button type="submit" radius="xl">
             {upperFirst(type)}
@@ -118,4 +89,4 @@ const AuthForm = (props: PaperProps) => {
   );
 };
 
-export default AuthForm;
+export default Signin;
