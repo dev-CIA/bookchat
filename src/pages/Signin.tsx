@@ -1,5 +1,4 @@
-import { Button, Paper, PaperProps, Text, Stack, Group, Anchor, Flex, Image } from '@mantine/core';
-import { useToggle, upperFirst } from '@mantine/hooks';
+import { Button, Paper, PaperProps, Text, Stack, Group, Image, Space } from '@mantine/core';
 import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,7 +11,6 @@ import { signinSchema } from '../schema';
 type signinFormProp = z.infer<typeof signinSchema>;
 
 const Signin = (props: PaperProps) => {
-  const [type, toggle] = useToggle(['login', 'register']);
   const { control, handleSubmit } = useForm<signinFormProp>({
     defaultValues: {
       email: '',
@@ -72,16 +70,15 @@ const Signin = (props: PaperProps) => {
         </Stack>
 
         <Group position="apart" mt="xl">
-          <Anchor component="button" type="button" color="dimmed" onClick={() => toggle()} size="xs">
-            <Flex gap={4}>
-              아직 회원이 아니신가요?
-              <Text td="underline" fs="italic">
-                회원가입하러 가기
-              </Text>
-            </Flex>
-          </Anchor>
+          <Text display={'flex'} fz={'sm'} c={'dimmed'}>
+            아직 회원이 아니신가요?
+            <Space w={'xs'} />
+            <Text component={Link} to={'/signup'} td="underline" fs="italic">
+              회원가입하러 가기
+            </Text>
+          </Text>
           <Button type="submit" radius="xl">
-            {upperFirst(type)}
+            Login
           </Button>
         </Group>
       </form>
