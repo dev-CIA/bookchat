@@ -105,9 +105,7 @@ const BookChat = () => {
         content: data,
         sender: 'assistant',
       };
-      console.log('newAnswer', data);
       setMessages(messages => [...messages, newAnswer]);
-      console.log(messages);
     } catch (error: any) {
       console.error('요청 실패: ', error.message);
     } finally {

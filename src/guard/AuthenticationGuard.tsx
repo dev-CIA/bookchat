@@ -17,8 +17,6 @@ const AuthenticationGuard = ({ redirectTo, element }: AuthGuardProps) => {
 
         setIsAuthenticated(true);
       } catch (e) {
-        console.log('error', e);
-        console.error('errorme', e);
         setIsAuthenticated(false);
       } finally {
         setCompleted(true);

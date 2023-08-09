@@ -3,7 +3,7 @@ import { TextInput, PasswordInput } from 'react-hook-form-mantine';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { userState, isLoginState } from '../recoil/atoms';
+import { userState, isLoginState, menuState } from '../recoil/atoms';
 import { signin } from '../api';
 import { z } from 'zod';
 import { signinSchema } from '../schema';
@@ -25,15 +25,16 @@ const Signin = (props: PaperProps) => {
   });
   const setUser = useSetRecoilState(userState);
   const setIsLogin = useSetRecoilState(isLoginState);
+  const setActiveMenu = useSetRecoilState(menuState);
   const navigate = useNavigate();
 
   const submitForm = async (authForm: signinFormProp) => {
-    console.log(authForm.email);
     try {
       const { data } = await signin(authForm);
 
       setUser(data);
       setIsLogin(true);
+      setActiveMenu('0');
       navigate('/');
     } catch (error: any) {
       console.error('로그인 실패: ', error.message);
