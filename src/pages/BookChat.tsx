@@ -1,9 +1,14 @@
 import React from 'react';
 import { ActionIcon, Textarea, Text, createStyles, Container, Avatar, rem, Flex } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconSend } from '@tabler/icons-react';
 import { updateChat } from '../api';
 
-const useStyles = createStyles(theme => ({
+interface ScreenProps {
+  mediumScreen: boolean;
+}
+
+const useStyles = createStyles((theme, { mediumScreen }: ScreenProps) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -56,7 +61,7 @@ const useStyles = createStyles(theme => ({
 
   inputContainer: {
     position: 'fixed',
-    bottom: 0,
+    bottom: mediumScreen ? 0 : 40,
     display: 'flex',
     alignItems: 'center',
     width: '100%',
@@ -76,7 +81,8 @@ interface Message {
 }
 
 const BookChat = () => {
-  const { classes } = useStyles();
+  const mediumScreen = useMediaQuery('(min-width: 64em');
+  const { classes } = useStyles({ mediumScreen });
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [messageInput, setMessageInput] = React.useState('');
 
