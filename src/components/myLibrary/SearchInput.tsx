@@ -34,8 +34,15 @@ const useStyles = createStyles(() => ({
 const SearchInput = () => {
   const { classes } = useStyles();
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const res = await getAladinSearchResults();
+    console.log(res);
+  };
+
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={handleSubmit}>
       <Select
         classNames={{ input: classes.selectInput, item: classes.selectItem }}
         w={'20%'}
