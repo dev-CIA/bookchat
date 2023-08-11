@@ -1,5 +1,6 @@
 import { ActionIcon, TextInput, createStyles, Select, rem } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
+import { getAladinSearchResults } from '../../api';
 
 const useStyles = createStyles(() => ({
   form: {
@@ -49,7 +50,7 @@ const SearchInput = () => {
         w={'60%'}
         miw={250}
         rightSection={
-          <ActionIcon variant="filled" size={'md'} title="search">
+          <ActionIcon component="button" type="submit" variant="filled" size={'md'} title="search">
             <IconSearch size="1rem" />
           </ActionIcon>
         }
