@@ -34,8 +34,8 @@ const useStyles = createStyles(() => ({
 const SearchInput = () => {
   const { classes } = useStyles();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     const res = await getAladinSearchResults();
     console.log(res);
