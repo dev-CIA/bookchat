@@ -1,3 +1,4 @@
+import React from 'react';
 import { ActionIcon, TextInput, createStyles, Select, rem } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import { getAladinSearchResults } from '../../api';
@@ -37,13 +38,22 @@ const SearchInput = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const res = await getAladinSearchResults();
-    console.log(res);
+    const {
+      type: { value: type },
+      book: { value: book },
+    } = event.currentTarget;
+
+    if (book === '') return;
+
+    if (type === '통합 검색') {
+      await getAladinSearchResults(book);
+    }
   };
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Select
+        name="type"
         classNames={{ input: classes.selectInput, item: classes.selectItem }}
         w={'20%'}
         miw={100}
@@ -52,8 +62,10 @@ const SearchInput = () => {
         aria-label="search type select"
       />
       <TextInput
+        name="book"
         classNames={{ input: classes.searchInput }}
         placeholder="책 검색하기"
+        defaultValue=""
         w={'60%'}
         miw={250}
         rightSection={
