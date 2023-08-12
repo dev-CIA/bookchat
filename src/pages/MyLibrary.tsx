@@ -1,10 +1,11 @@
-import { Books, SearchInput } from '../components/myLibrary';
+import { Outlet } from 'react-router-dom';
+import { SearchInput } from '../components/myLibrary';
 
 const MyLibrary = () => {
   return (
     <>
       <SearchInput />
-      <Books />
+      <Outlet />
     </>
   );
 };
