@@ -10,7 +10,7 @@ import {
   Signin,
   Signup,
 } from '../pages';
-import { Books, SearchResult } from '../components/myLibrary';
+import { Books, SearchResults } from '../components/myLibrary';
 import AuthenticationGuard from '../guard/AuthenticationGuard';
 
 const router = createBrowserRouter([
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'search',
-            element: <SearchResult />,
+            element: <SearchResults />,
           },
         ],
       },
