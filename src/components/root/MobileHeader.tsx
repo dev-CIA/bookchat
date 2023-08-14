@@ -1,4 +1,4 @@
-import { Box, Header, Title, createStyles, Image, Flex, Container, Avatar } from '@mantine/core';
+import { Header, createStyles, Avatar } from '@mantine/core';
 import { sizes } from '../../constants';
 import { UserMenu } from '.';
 
@@ -16,7 +16,7 @@ const MobileHeader = () => {
 
   return (
     <Header className={classes.header} height={sizes.MOBILE_HEADER_HEIGHT} px={16}>
-      <Avatar src="./logo/bookchatLogo.png" alt="logo" />
+      <Avatar src="/logo/bookchatLogo.png" alt="logo" />
       <UserMenu />
     </Header>
   );
