@@ -19,6 +19,7 @@
     "@mantine/notifications": "^6.0.18",
     "@tabler/icons-react": "^2.29.0",
     "@tanstack/react-query": "^4.32.6",
+    "@tanstack/react-query-devtools": "^4.32.6",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
     "embla-carousel-react": "^7.1.0",
