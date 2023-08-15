@@ -6,9 +6,9 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atoms';
 
 interface dataProp {
-  isbn: string;
-  image: string;
+  itemId: string;
   title: string;
+  cover: string;
   rate: number;
 }
 
@@ -45,7 +45,7 @@ const Books = () => {
           { maxWidth: 'xxl', cols: 5, spacing: 'md' },
         ]}>
         {libraryData.map((data: dataProp) => (
-          <Book key={data.isbn + data.title} {...data} />
+          <Book key={data.itemId} {...data} />
         ))}
       </SimpleGrid>
     </Container>

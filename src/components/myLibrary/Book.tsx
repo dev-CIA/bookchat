@@ -19,12 +19,12 @@ const useStyles = createStyles(theme => ({
 
 interface BookProps {
   key: string;
-  image: string;
   title: string;
+  cover: string;
   rate: number;
 }
 
-const Book = ({ image, title, rate }: BookProps) => {
+const Book = ({ title, cover, rate }: BookProps) => {
   const { classes } = useStyles();
   const smallScreen = useMediaQuery('(max-width: 48em');
 
@@ -40,7 +40,7 @@ const Book = ({ image, title, rate }: BookProps) => {
       withBorder>
       <Card.Section>
         <AspectRatio ratio={720 / 1080}>
-          <Image src={image} alt="book image" fit="contain" />
+          <Image src={cover} alt="book image" fit="contain" />
         </AspectRatio>
       </Card.Section>
       <Group mt={smallScreen ? 3 : 5}>
