@@ -10,6 +10,7 @@ import {
   Signin,
   Signup,
 } from '../pages';
+import { Books, SearchResults } from '../components/myLibrary';
 import AuthenticationGuard from '../guard/AuthenticationGuard';
 
 const router = createBrowserRouter([
@@ -38,6 +39,16 @@ const router = createBrowserRouter([
       {
         path: 'mylibrary',
         element: <AuthenticationGuard redirectTo="/signin" element={<MyLibrary />} />,
+        children: [
+          {
+            path: '',
+            element: <Books />,
+          },
+          {
+            path: 'search',
+            element: <SearchResults />,
+          },
+        ],
       },
       {
         path: 'profile',
