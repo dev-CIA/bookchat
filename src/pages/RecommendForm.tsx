@@ -54,8 +54,6 @@ const RecommendForm = () => {
     defaultValues: { book: '', weather: '', mood: '', other: '' },
   });
 
-  React.useEffect(() => {}, []);
-
   React.useEffect(() => {
     (async () => {
       try {
