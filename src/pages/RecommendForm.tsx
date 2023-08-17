@@ -66,7 +66,7 @@ const RecommendForm = () => {
       id: 'book',
       datas: books,
       title: '내 서재에서 좋아하는 책 기반으로 추천받기',
-      placeholder: '좋아하는 책을 고르세요',
+      placeholder: isLogin ? '좋아하는 책을 고르세요' : '이 항목은 로그인 후 사용가능합니다.',
     },
     { id: 'weather', datas: WEATHER, title: '날씨에 어울리는 책 추천받기', placeholder: '날씨를 고르세요' },
     { id: 'mood', datas: MOOD, title: '내 기분에 맞는 책 추천받기', placeholder: '기분을 고르세요' },
