@@ -14,9 +14,10 @@ interface SelectorProps {
   datas: string[];
   title: string;
   placeholder: string;
+  disabled?: true | false;
 }
 
-const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
+const FormInput = ({ id, datas, title, placeholder, disabled }: SelectorProps) => {
   const { classes } = useStyles();
   const { control } = useFormContext();
 
@@ -34,6 +35,7 @@ const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
           label={title}
           onKeyDown={preventSubmit}
           placeholder={placeholder}
+          disabled={disabled}
           searchable
           clearable
           allowDeselect
