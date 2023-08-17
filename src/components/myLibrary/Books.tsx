@@ -1,9 +1,6 @@
-import React from 'react';
 import { Book } from './index';
 import { SimpleGrid, Container } from '@mantine/core';
-import { getMyLibrary } from '../../api';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/atoms';
+import { useMyLibraryQuery } from '../../hooks/queries';
 
 interface dataProp {
   itemId: string;
@@ -13,27 +10,7 @@ interface dataProp {
 }
 
 const Books = () => {
-  const email = useRecoilValue(userState).email;
-  const [libraryData, setLibraryData] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState();
-
-  React.useEffect(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        const { data } = await getMyLibrary(email);
-        setLibraryData(data);
-      } catch (e: any) {
-        setError(e);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, []);
-
-  if (error) return <pre>{error}</pre>;
-  if (isLoading) return 'Loading...';
+  const { libraryData } = useMyLibraryQuery();
 
   return (
     <Container py="sm" fluid m={0} px={0}>

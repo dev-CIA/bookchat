@@ -8,9 +8,9 @@ import { FormInput } from '../components/recommend';
 import { partialConditionForm } from '../schema';
 import { sendCondition } from '../api/openai';
 import { useNavigate } from 'react-router-dom';
-import { getMyLibrary } from '../api';
 import { useRecoilValue } from 'recoil';
-import { isLoginState, userState } from '../recoil/atoms';
+import { isLoginState } from '../recoil/atoms';
+import { useMyLibraryQuery } from '../hooks/queries';
 
 type FormData = z.infer<typeof partialConditionForm>;
 
@@ -41,11 +41,8 @@ const getResultData = (data: string) => {
 };
 
 const RecommendForm = () => {
-  const email = useRecoilValue(userState).email;
   const [waitingResult, setWaitingResult] = React.useState(false);
-  const [libraryData, setLibraryData] = React.useState<string[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState();
+  const [books, setBooks] = React.useState<string[]>([]);
 
   const navigate = useNavigate();
   const isLogin = useRecoilValue(isLoginState);
@@ -54,42 +51,22 @@ const RecommendForm = () => {
     defaultValues: { book: '', weather: '', mood: '', other: '' },
   });
 
-  React.useEffect(() => {}, []);
-
   React.useEffect(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        if (!isLogin) {
-          setLibraryData([]);
-        }
-        if (isLogin) {
-          const { data } = await getMyLibrary(email);
-          if (data.length) {
-            const datas = data
-              .map((item: dataProp) => `${item.title} / ${item.author}`)
-              .sort((a: string, b: string) => a.localeCompare(b));
-            setLibraryData(datas);
-          }
-          if (!data.length) setLibraryData([]);
-        }
-      } catch (e: any) {
-        setError(e);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
+    if (isLogin) {
+      const { libraryData } = useMyLibraryQuery();
+      const _books = libraryData
+        .map((item: dataProp) => `${item.title} / ${item.author}`)
+        .sort((a: string, b: string) => a.localeCompare(b));
+      setBooks(_books);
+    }
   }, []);
-
-  if (error) return <pre>{error}</pre>;
-  if (isLoading) return 'Loading...';
 
   const formInputs = [
     {
       id: 'book',
-      datas: libraryData,
+      datas: books,
       title: '내 서재에서 좋아하는 책 기반으로 추천받기',
-      placeholder: '좋아하는 책을 고르세요',
+      placeholder: isLogin ? '좋아하는 책을 고르세요' : '이 항목은 로그인 후 사용가능합니다.',
     },
     { id: 'weather', datas: WEATHER, title: '날씨에 어울리는 책 추천받기', placeholder: '날씨를 고르세요' },
     { id: 'mood', datas: MOOD, title: '내 기분에 맞는 책 추천받기', placeholder: '기분을 고르세요' },
