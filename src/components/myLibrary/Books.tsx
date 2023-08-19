@@ -1,13 +1,7 @@
 import { Book } from './index';
 import { SimpleGrid, Container } from '@mantine/core';
 import { useMyLibraryQuery } from '../../hooks/queries';
-
-interface dataProp {
-  itemId: string;
-  title: string;
-  cover: string;
-  rate: number;
-}
+import { BookApiData } from '../../types/bookData';
 
 const Books = () => {
   const { libraryData } = useMyLibraryQuery();
@@ -21,9 +15,11 @@ const Books = () => {
           { maxWidth: 'lg', cols: 4, spacing: 'md' },
           { maxWidth: 'xxl', cols: 5, spacing: 'md' },
         ]}>
-        {libraryData.map((data: dataProp) => (
-          <Book key={data.itemId} {...data} />
-        ))}
+        {libraryData !== undefined || libraryData === Array<BookApiData>() ? (
+          (libraryData as BookApiData[]).map(data => <Book key={`${data.itemId}`} {...data} />)
+        ) : (
+          <div></div>
+        )}
       </SimpleGrid>
     </Container>
   );

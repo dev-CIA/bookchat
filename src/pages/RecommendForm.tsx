@@ -14,14 +14,6 @@ import { useMyLibraryQuery } from '../hooks/queries';
 
 type FormData = z.infer<typeof partialConditionForm>;
 
-interface dataProp {
-  isbn: string;
-  image: string;
-  title: string;
-  rate: number;
-  author: string;
-}
-
 const getResultData = (data: string) => {
   const result = { firstComment: '', books: [{}], lastComment: '' };
 
@@ -42,7 +34,6 @@ const getResultData = (data: string) => {
 
 const RecommendForm = () => {
   const [waitingResult, setWaitingResult] = React.useState(false);
-  const [books, setBooks] = React.useState<string[]>([]);
 
   const navigate = useNavigate();
   const isLogin = useRecoilValue(isLoginState);
@@ -51,20 +42,15 @@ const RecommendForm = () => {
     defaultValues: { book: '', weather: '', mood: '', other: '' },
   });
 
-  React.useEffect(() => {
-    if (isLogin) {
-      const { libraryData } = useMyLibraryQuery();
-      const _books = libraryData
-        .map((item: dataProp) => `${item.title} / ${item.author}`)
-        .sort((a: string, b: string) => a.localeCompare(b));
-      setBooks(_books);
-    }
-  }, []);
+  const { libraryData } = useMyLibraryQuery({
+    select: libraryData =>
+      libraryData.map(item => `${item.title} / ${item.author}`).sort((a: string, b: string) => a.localeCompare(b)),
+  });
 
   const formInputs = [
     {
       id: 'book',
-      datas: books,
+      datas: isLogin ? (libraryData as string[]) : ([] as string[]),
       title: '내 서재에서 좋아하는 책 기반으로 추천받기',
       placeholder: isLogin ? '좋아하는 책을 고르세요' : '이 항목은 로그인 후 사용가능합니다.',
     },
@@ -110,9 +96,6 @@ const RecommendForm = () => {
         <Paper shadow="sm" p="md" radius={'md'} withBorder>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(submitForm)}>
-              {/* <Selector datas={libraryData} title="좋아하는 책 기반으로 추천받기" placeholder="좋아하는 책을 고르세요" /> */}
-              {/* <TextInput label="검색으로 고르기" placeholder="책 검색하기" /> */}
-
               <Flex direction={'column'} gap={4}>
                 {formInputs.map(input => (
                   <FormInput key={input.id} {...input} />

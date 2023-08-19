@@ -1,18 +1,29 @@
+import { AxiosError } from 'axios';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atoms';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEY } from '../../constants';
 import { getMyLibrary } from '../../api';
+import { isLoginState } from '../../recoil/atoms';
+import type { BookApiData } from '../../types/bookData';
 
-const useMyLibraryQuery = () => {
+interface optionsProps {
+  select?: (data: BookApiData[]) => string[];
+}
+
+const useMyLibraryQuery = (options?: optionsProps) => {
+  const isLogin = useRecoilValue(isLoginState);
+  if (!isLogin) return { libraryData: new Array<BookApiData>() };
+
   const { email } = useRecoilValue(userState);
 
-  const query = useQuery({
-    queryKey: [QUERY_KEY.MY_LIBRARY],
-    queryFn: async () => await getMyLibrary(email),
+  const query = useQuery<BookApiData[], AxiosError, BookApiData[] | string[], string[]>({
+    queryKey: [QUERY_KEY.MY_LIBRARY, email],
+    queryFn: () => getMyLibrary(email),
+    ...options,
   });
 
-  return { ...query, libraryData: query.data?.data };
+  return { ...query, libraryData: query.data };
 };
 
 export default useMyLibraryQuery;

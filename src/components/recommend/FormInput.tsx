@@ -34,6 +34,7 @@ const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
           label={title}
           onKeyDown={preventSubmit}
           placeholder={placeholder}
+          disabled={datas.length === 0}
           searchable
           clearable
           allowDeselect
