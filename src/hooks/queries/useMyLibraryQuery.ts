@@ -19,7 +19,7 @@ const useMyLibraryQuery = (options?: optionsProps) => {
     ...options,
   });
 
-  return { ...query, libraryData: query.data?.data };
+  return { ...query, libraryData: query.data };
 };
 
 export default useMyLibraryQuery;
