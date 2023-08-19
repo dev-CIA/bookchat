@@ -20,8 +20,8 @@ const useStyles = createStyles(theme => ({
 interface BookProps {
   key: string;
   title: string;
-  cover: string;
-  rate: number;
+  cover?: string;
+  rate?: number;
 }
 
 const Book = ({ title, cover, rate }: BookProps) => {
