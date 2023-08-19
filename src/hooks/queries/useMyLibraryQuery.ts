@@ -18,7 +18,7 @@ const useMyLibraryQuery = (options?: optionsProps) => {
   const { email } = useRecoilValue(userState);
 
   const query = useQuery<BookApiData[], AxiosError, BookApiData[] | string[], string[]>({
-    queryKey: [QUERY_KEY.MY_LIBRARY],
+    queryKey: [QUERY_KEY.MY_LIBRARY, email],
     queryFn: () => getMyLibrary(email),
     ...options,
   });
