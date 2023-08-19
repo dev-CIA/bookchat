@@ -13,7 +13,7 @@ interface optionsProps {
 
 const useMyLibraryQuery = (options?: optionsProps) => {
   const isLogin = useRecoilValue(isLoginState);
-  if (!isLogin) return { libraryData: [''] };
+  if (!isLogin) return { libraryData: new Array<BookApiData>() };
 
   const { email } = useRecoilValue(userState);
 
