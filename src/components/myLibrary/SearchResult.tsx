@@ -27,10 +27,10 @@ const useStyles = createStyles(theme => ({
 interface SearchResultProps {
   title: string;
   author: string;
-  pubDate: string;
-  cover: string;
-  description: string;
-  link: string;
+  pubDate?: string;
+  cover?: string;
+  description?: string;
+  link?: string;
 }
 
 const SearchResult = ({ title, author, pubDate, cover }: SearchResultProps) => {
