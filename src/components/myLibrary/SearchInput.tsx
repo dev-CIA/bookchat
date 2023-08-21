@@ -1,7 +1,6 @@
-import React from 'react';
 import { ActionIcon, TextInput, createStyles, Select, rem } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
-import { getAladinSearchResults } from '../../api';
+import { Form } from 'react-router-dom';
 
 const useStyles = createStyles(() => ({
   form: {
@@ -35,23 +34,8 @@ const useStyles = createStyles(() => ({
 const SearchInput = () => {
   const { classes } = useStyles();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const {
-      type: { value: type },
-      book: { value: book },
-    } = event.currentTarget;
-
-    if (book === '') return;
-
-    if (type === '통합 검색') {
-      await getAladinSearchResults(book);
-    }
-  };
-
   return (
-    <form className={classes.form} onSubmit={handleSubmit}>
+    <Form className={classes.form} role="search" action="./search">
       <Select
         name="type"
         classNames={{ input: classes.selectInput, item: classes.selectItem }}
@@ -62,6 +46,7 @@ const SearchInput = () => {
         aria-label="search type select"
       />
       <TextInput
+        type="search"
         name="book"
         classNames={{ input: classes.searchInput }}
         placeholder="책 검색하기"
@@ -74,7 +59,7 @@ const SearchInput = () => {
           </ActionIcon>
         }
       />
-    </form>
+    </Form>
   );
 };
 

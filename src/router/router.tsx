@@ -12,6 +12,7 @@ import {
 } from '../pages';
 import { Books, SearchResults } from '../components/myLibrary';
 import AuthenticationGuard from '../guard/AuthenticationGuard';
+import { searchLoader } from './loaders';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
           {
             path: 'search',
             element: <SearchResults />,
+            loader: searchLoader,
           },
         ],
       },
