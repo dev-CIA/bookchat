@@ -1,6 +1,6 @@
 import { Text, Group, Button, Title, Flex, createStyles } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
-import { ResultCard } from '../components/recommend';
+import { ResultCard } from '../../components/recommend';
 import { Link, useLocation } from 'react-router-dom';
 
 const useStyles = createStyles(() => ({

@@ -1,6 +1,6 @@
 import { Container, Stack } from '@mantine/core';
-import { SearchResult } from '.';
 import { useLoaderData } from 'react-router-dom';
+import { SearchResult } from '../../components/myLibrary';
 import { SearchResponse } from '../../types';
 
 const SearchResults = () => {

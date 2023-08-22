@@ -1,16 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-import {
-  BookChat,
-  MyLibrary,
-  Profile,
-  Recommend,
-  Root,
-  RecommendResult,
-  RecommendForm,
-  Signin,
-  Signup,
-} from '../pages';
-import { Books, SearchResults } from '../components/myLibrary';
+import { BookChat, Profile, Root, Signin, Signup } from '../pages';
+import { Recommend, RecommendResult, RecommendForm } from '../pages/recommend';
+import { MyLibrary, Books, SearchResults } from '../pages/myLibrary';
 import AuthenticationGuard from '../guard/AuthenticationGuard';
 import { searchLoader } from './loaders';
 
