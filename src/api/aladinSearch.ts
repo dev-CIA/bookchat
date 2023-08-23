@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getAladinSearchResults = async (Query: string, QueryType = 'Keyword', Start = '1') => {
+const getAladinSearchResults = async (Query: string, QueryType = 'Keyword', Start = 1) => {
   const { data } = await axios.get(
     `${
       import.meta.env.VITE_BASE_URL
