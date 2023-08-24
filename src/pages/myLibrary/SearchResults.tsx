@@ -1,39 +1,13 @@
-import React from 'react';
 import { Container, Flex, Loader, Stack } from '@mantine/core';
 import { useLoaderData } from 'react-router-dom';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { SearchResult } from '../../components/myLibrary';
-import { searchResultQuery } from '../../utils';
 import { searchLoader } from '../../router/loaders';
+import { SearchResult } from '../../components/myLibrary';
+import { useInfiniteScroll } from '../../hooks';
 import { BookApiData } from '../../types';
 
 const SearchResults = () => {
   const { book } = useLoaderData() as Awaited<ReturnType<ReturnType<typeof searchLoader>>>;
-
-  const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
-    ...searchResultQuery(book),
-    getNextPageParam: lastPage => lastPage.startIndex + 1 ?? undefined,
-  });
-
-  const observerTargetRef = React.useRef<HTMLDivElement | null>(null);
-
-  const handleObserver = React.useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      if (entries[0].isIntersecting && hasNextPage) {
-        fetchNextPage();
-      }
-    },
-    [fetchNextPage, hasNextPage]
-  );
-
-  React.useEffect(() => {
-    const observerTarget = observerTargetRef.current;
-    const option = { threshold: 0 };
-
-    const observer = new IntersectionObserver(handleObserver, option);
-    observer.observe(observerTarget as Element);
-    return () => observer.unobserve(observerTarget as Element);
-  }, [observerTargetRef, handleObserver]);
+  const { data, isFetchingNextPage, hasNextPage, observerTargetRef } = useInfiniteScroll(book);
 
   return (
     <Container mt={20}>
