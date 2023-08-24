@@ -1,10 +1,10 @@
 import { Container, Stack } from '@mantine/core';
 import { useLoaderData } from 'react-router-dom';
 import { SearchResult } from '../../components/myLibrary';
-import { SearchResponse } from '../../types';
+import { searchLoader } from '../../router/loaders';
 
 const SearchResults = () => {
-  const searchResponse = useLoaderData() as SearchResponse;
+  const { book } = useLoaderData() as Awaited<ReturnType<ReturnType<typeof searchLoader>>>;
 
   return (
     <Container mt={20}>
