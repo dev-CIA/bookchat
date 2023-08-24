@@ -1,17 +1,23 @@
 import { Container, Stack } from '@mantine/core';
 import { useLoaderData } from 'react-router-dom';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { SearchResult } from '../../components/myLibrary';
+import { searchResultQuery } from '../../utils';
 import { searchLoader } from '../../router/loaders';
+import { BookApiData } from '../../types';
 
 const SearchResults = () => {
   const { book } = useLoaderData() as Awaited<ReturnType<ReturnType<typeof searchLoader>>>;
 
+  const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
+    ...searchResultQuery(book),
+    getNextPageParam: lastPage => lastPage.startIndex + 1 ?? undefined,
+  });
+
   return (
     <Container mt={20}>
       <Stack>
-        {searchResponse.data.item.map(book => (
-          <SearchResult key={book.itemId} {...book} />
-        ))}
+        {data?.pages.map(page => page.item.map((book: BookApiData) => <SearchResult key={book.itemId} {...book} />))}
       </Stack>
     </Container>
   );
