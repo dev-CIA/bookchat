@@ -1,6 +1,6 @@
 import { InfiniteData, QueryClient } from '@tanstack/react-query';
 import { searchResultQuery } from '../../utils';
-import { SearchResponse } from '../../types';
+import type { SearchResponse } from '../../types';
 
 const searchLoader =
   (queryClient: QueryClient) =>
