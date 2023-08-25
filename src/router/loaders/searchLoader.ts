@@ -1,5 +1,6 @@
 import { InfiniteData, QueryClient } from '@tanstack/react-query';
 import { searchResultQuery } from '../../utils';
+import { redirect } from 'react-router-dom';
 import type { SearchResponse } from '../../types';
 
 const searchLoader =
@@ -8,8 +9,13 @@ const searchLoader =
     const url = new URL(request.url);
     const searchOption = url.searchParams.get('searchOption') || '';
     const searchWord = url.searchParams.get('searchWord') || '';
+    const search = url.search;
 
     const query = searchResultQuery(searchWord);
+
+    if (searchOption === '내 서재에서') {
+      return redirect(`/mylibrary${search}`);
+    }
 
     return {
       initialData:
