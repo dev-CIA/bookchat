@@ -43,7 +43,7 @@ const App = () => {
           withGlobalStyles
           withNormalizeCSS>
           <Notifications />
-          <RouterProvider router={router} />
+          <RouterProvider router={router(queryClient)} />
         </MantineProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

@@ -3,14 +3,14 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Paper, Title, Text, Flex, Container, Loader } from '@mantine/core';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
-import { WEATHER, MOOD } from '../constants';
-import { FormInput } from '../components/recommend';
-import { partialConditionForm } from '../schema';
-import { sendCondition } from '../api/openai';
+import { WEATHER, MOOD } from '../../constants';
+import { FormInput } from '../../components/recommend';
+import { partialConditionForm } from '../../schema';
+import { sendCondition } from '../../api/openai';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { isLoginState } from '../recoil/atoms';
-import { useMyLibraryQuery } from '../hooks/queries';
+import { isLoginState } from '../../recoil/atoms';
+import { useMyLibraryQuery } from '../../hooks/queries';
 
 type FormData = z.infer<typeof partialConditionForm>;
 

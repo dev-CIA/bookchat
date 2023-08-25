@@ -1,4 +1,4 @@
-import { Book } from './index';
+import { Book } from '../../components/myLibrary/index';
 import { SimpleGrid, Container } from '@mantine/core';
 import { useMyLibraryQuery } from '../../hooks/queries';
 import { BookApiData } from '../../types/bookData';
