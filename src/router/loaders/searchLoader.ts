@@ -6,19 +6,17 @@ const searchLoader =
   (queryClient: QueryClient) =>
   async ({ request }: { request: Request }) => {
     const url = new URL(request.url);
-    // const type = url.searchParams.get('type') || '';
-    const book = url.searchParams.get('book') || '';
+    const searchOption = url.searchParams.get('searchOption') || '';
+    const searchWord = url.searchParams.get('searchWord') || '';
 
-    const query = searchResultQuery(book);
+    const query = searchResultQuery(searchWord);
 
-    // if (type === '통합 검색') {
     return {
       initialData:
         queryClient.getQueryData<InfiniteData<SearchResponse>>(query.queryKey) ??
         (await queryClient.fetchInfiniteQuery(query)),
-      book,
+      searchWord,
     };
-    // }
   };
 
 export default searchLoader;
