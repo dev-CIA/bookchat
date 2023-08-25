@@ -1,24 +1,28 @@
 import { InfiniteData, QueryClient } from '@tanstack/react-query';
 import { searchResultQuery } from '../../utils';
-import { SearchResponse } from '../../types';
+import { redirect } from 'react-router-dom';
+import type { SearchResponse } from '../../types';
 
 const searchLoader =
   (queryClient: QueryClient) =>
   async ({ request }: { request: Request }) => {
     const url = new URL(request.url);
-    // const type = url.searchParams.get('type') || '';
-    const book = url.searchParams.get('book') || '';
+    const searchOption = url.searchParams.get('searchOption') || '';
+    const searchWord = url.searchParams.get('searchWord') || '';
+    const search = url.search;
 
-    const query = searchResultQuery(book);
+    const query = searchResultQuery(searchWord);
 
-    // if (type === '통합 검색') {
+    if (searchOption === '내 서재에서') {
+      return redirect(`/mylibrary${search}`);
+    }
+
     return {
       initialData:
         queryClient.getQueryData<InfiniteData<SearchResponse>>(query.queryKey) ??
         (await queryClient.fetchInfiniteQuery(query)),
-      book,
+      searchWord,
     };
-    // }
   };
 
 export default searchLoader;

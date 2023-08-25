@@ -37,7 +37,7 @@ const SearchInput = () => {
   return (
     <Form className={classes.form} role="search" action="./search">
       <Select
-        name="type"
+        name="searchOption"
         classNames={{ input: classes.selectInput, item: classes.selectItem }}
         w={'20%'}
         miw={100}
@@ -47,7 +47,7 @@ const SearchInput = () => {
       />
       <TextInput
         type="search"
-        name="book"
+        name="searchWord"
         classNames={{ input: classes.searchInput }}
         placeholder="책 검색하기"
         defaultValue=""

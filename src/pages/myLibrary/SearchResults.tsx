@@ -1,13 +1,18 @@
 import { Container, Flex, Loader, Stack } from '@mantine/core';
 import { useLoaderData } from 'react-router-dom';
-import { searchLoader } from '../../router/loaders';
+import { InfiniteData } from '@tanstack/react-query';
 import { SearchResult } from '../../components/myLibrary';
 import { useInfiniteScroll } from '../../hooks';
-import { BookApiData } from '../../types';
+import type { BookApiData, SearchResponse } from '../../types';
+
+interface SearchLoaderData {
+  initialData: InfiniteData<SearchResponse>;
+  searchWord: string;
+}
 
 const SearchResults = () => {
-  const { book } = useLoaderData() as Awaited<ReturnType<ReturnType<typeof searchLoader>>>;
-  const { data, isFetchingNextPage, hasNextPage, observerTargetRef } = useInfiniteScroll(book);
+  const { searchWord } = useLoaderData() as SearchLoaderData;
+  const { data, isFetchingNextPage, hasNextPage, observerTargetRef } = useInfiniteScroll(searchWord);
 
   return (
     <Container mt={20}>

@@ -1,10 +1,11 @@
-import { RecoilRoot } from 'recoil';
-import { RouterProvider } from 'react-router-dom';
-import router from './router/router';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
+import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useRecoilValue } from 'recoil';
+import { userState } from './recoil/atoms';
+import router from './router/router';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,38 +17,38 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
+  const { email } = useRecoilValue(userState);
+
   return (
-    <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <MantineProvider
-          theme={{
-            globalStyles: () => ({
-              '*, *::before, *::after': {
-                boxSizing: 'border-box',
-                margin: '0',
-                padding: '0',
-              },
-            }),
-            primaryColor: 'teal',
-            breakpoints: {
-              xs: '30em', // 480px
-              sm: '48em', // 768px
-              md: '64em', // 1024px - ipad pro
-              lg: '74em', // 1184px
-              xl: '90em', // 1440px
-              xxl: '120em', // 1920px
+    <QueryClientProvider client={queryClient}>
+      <MantineProvider
+        theme={{
+          globalStyles: () => ({
+            '*, *::before, *::after': {
+              boxSizing: 'border-box',
+              margin: '0',
+              padding: '0',
             },
-            defaultGradient: { from: 'blue.4', to: 'teal.4', deg: 45 },
-          }}
-          withCSSVariables
-          withGlobalStyles
-          withNormalizeCSS>
-          <Notifications />
-          <RouterProvider router={router(queryClient)} />
-        </MantineProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </RecoilRoot>
+          }),
+          primaryColor: 'teal',
+          breakpoints: {
+            xs: '30em', // 480px
+            sm: '48em', // 768px
+            md: '64em', // 1024px - ipad pro
+            lg: '74em', // 1184px
+            xl: '90em', // 1440px
+            xxl: '120em', // 1920px
+          },
+          defaultGradient: { from: 'blue.4', to: 'teal.4', deg: 45 },
+        }}
+        withCSSVariables
+        withGlobalStyles
+        withNormalizeCSS>
+        <Notifications />
+        <RouterProvider router={router(queryClient, email)} />
+      </MantineProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
