@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { BookApiData } from './bookData';
+import type { BookApiData } from './bookData';
 
 interface SearchResponse extends AxiosResponse {
   data: {
