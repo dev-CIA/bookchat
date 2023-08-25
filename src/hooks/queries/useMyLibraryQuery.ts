@@ -17,6 +17,7 @@ const useMyLibraryQuery = (options?: optionsProps) => {
 
   const query = useQuery<BookApiData[], AxiosError, BookApiData[] | string[], string[]>({
     ...myLibraryQuery(email),
+    staleTime: 5 * 60 * 1000,
     ...options,
   });
 
