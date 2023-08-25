@@ -3,10 +3,10 @@ import { BookChat, Profile, Root, Signin, Signup } from '../pages';
 import { Recommend, RecommendResult, RecommendForm } from '../pages/recommend';
 import { MyLibrary, Books, SearchResults } from '../pages/myLibrary';
 import AuthenticationGuard from '../guard/AuthenticationGuard';
-import { searchLoader } from './loaders';
+import { myLibraryLoader, searchLoader } from './loaders';
 import { QueryClient } from '@tanstack/react-query';
 
-const router = (queryClient: QueryClient) =>
+const router = (queryClient: QueryClient, email: string) =>
   createBrowserRouter([
     {
       path: '/',
@@ -37,6 +37,7 @@ const router = (queryClient: QueryClient) =>
             {
               path: '',
               element: <Books />,
+              loader: myLibraryLoader(queryClient, email),
             },
             {
               path: 'search',
