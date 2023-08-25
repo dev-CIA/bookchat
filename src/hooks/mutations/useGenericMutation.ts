@@ -10,9 +10,13 @@ const useGenericMutation = ({ queryKey, mutationFn, updater }) => {
       await queryClient.cancelQueries({ queryKey });
 
       const previousDatas = queryClient.getQueryData(queryKey);
-      queryClient.setQueriesData(queryKey, updater);
+      queryClient.setQueryData(queryKey, updater);
 
       return { previousDatas };
+    },
+
+    onError(error, variables, context) {
+      queryClient.setQueryData(queryKey, context?.previousDatas);
     },
   });
 };
