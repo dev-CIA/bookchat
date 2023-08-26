@@ -1,5 +1,6 @@
-import { createStyles, Card, Image, Text, Group, Box, ActionIcon, rem } from '@mantine/core';
-import { IconFolderPlus } from '@tabler/icons-react';
+import React from 'react';
+import { createStyles, Card, Image, Text, Group, Box, ActionIcon, Rating, rem } from '@mantine/core';
+import { IconFolderPlus, IconArrowBackUp } from '@tabler/icons-react';
 import { BookApiData } from '../../types';
 
 const useStyles = createStyles(theme => ({
@@ -23,6 +24,15 @@ const useStyles = createStyles(theme => ({
     bottom: theme.spacing.md,
     right: theme.spacing.md,
   },
+
+  save: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: rem(3),
+    position: 'absolute',
+    bottom: theme.spacing.md,
+    right: theme.spacing.md,
+  },
 }));
 
 interface SearchResultProps {
@@ -31,6 +41,11 @@ interface SearchResultProps {
 
 const SearchResult = ({ book }: SearchResultProps) => {
   const { classes } = useStyles();
+  const [saveMode, setSaveMode] = React.useState<boolean>(false);
+
+  const handleAddBook = () => {
+    setSaveMode(saveMode => !saveMode);
+  };
 
   return (
     <Card withBorder radius="md" p={0} className={classes.card}>
@@ -45,10 +60,26 @@ const SearchResult = ({ book }: SearchResultProps) => {
             {book.pubDate}
           </Text>
         </Box>
-
-        <ActionIcon variant="filled" color="teal">
-          <IconFolderPlus size="1rem" />
-        </ActionIcon>
+        <form>
+          <Card className={classes.save} padding={5} withBorder={saveMode}>
+            {saveMode && (
+              <>
+                <Rating fractions={2} />
+                <ActionIcon
+                  variant="light"
+                  color="teal"
+                  onClick={() => {
+                    setSaveMode(false);
+                  }}>
+                  <IconArrowBackUp size="1rem" />
+                </ActionIcon>
+              </>
+            )}
+            <ActionIcon variant="filled" color="teal" onClick={handleAddBook}>
+              <IconFolderPlus size="1rem" />
+            </ActionIcon>
+          </Card>
+        </form>
       </Group>
     </Card>
   );
