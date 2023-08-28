@@ -43,7 +43,8 @@ const SearchResult = ({ book }: SearchResultProps) => {
   const { classes } = useStyles();
   const [saveMode, setSaveMode] = React.useState<boolean>(false);
 
-  const handleAddBook = () => {
+  const handleAddBook = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setSaveMode(saveMode => !saveMode);
   };
 
@@ -60,7 +61,7 @@ const SearchResult = ({ book }: SearchResultProps) => {
             {book.pubDate}
           </Text>
         </Box>
-        <form>
+        <form onSubmit={handleAddBook}>
           <Card className={classes.save} padding={5} withBorder={saveMode}>
             {saveMode && (
               <>
@@ -75,7 +76,7 @@ const SearchResult = ({ book }: SearchResultProps) => {
                 </ActionIcon>
               </>
             )}
-            <ActionIcon variant="filled" color="teal" onClick={handleAddBook}>
+            <ActionIcon component="button" type="submit" variant="filled" color="teal">
               <IconFolderPlus size="1rem" />
             </ActionIcon>
           </Card>
