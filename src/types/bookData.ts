@@ -6,7 +6,7 @@ interface BookApiData {
   description?: string;
   isbn?: string;
   isbn13?: string;
-  itemId?: number;
+  itemId: number;
   priceSales?: number;
   priceStandard?: number;
   mallType?: string;
