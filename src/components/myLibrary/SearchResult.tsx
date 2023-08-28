@@ -2,6 +2,7 @@ import React from 'react';
 import { createStyles, Card, Image, Text, Group, Box, ActionIcon, Rating, rem } from '@mantine/core';
 import { IconFolderPlus, IconArrowBackUp } from '@tabler/icons-react';
 import { BookApiData } from '../../types';
+import { useAddBookMutation } from '../../hooks/mutations';
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -37,11 +38,14 @@ const useStyles = createStyles(theme => ({
 
 interface SearchResultProps {
   book: BookApiData;
+  libraryIds: number[];
 }
 
-const SearchResult = ({ book }: SearchResultProps) => {
+const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
   const { classes } = useStyles();
   const [saveMode, setSaveMode] = React.useState<boolean>(false);
+
+  const checkMyLibrary = (id: number) => libraryIds.some(bookId => bookId === id);
 
   const handleAddBook = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -76,7 +80,12 @@ const SearchResult = ({ book }: SearchResultProps) => {
                 </ActionIcon>
               </>
             )}
-            <ActionIcon component="button" type="submit" variant="filled" color="teal">
+            <ActionIcon
+              component="button"
+              type="submit"
+              variant="filled"
+              color="teal"
+              disabled={checkMyLibrary(book.itemId)}>
               <IconFolderPlus size="1rem" />
             </ActionIcon>
           </Card>
