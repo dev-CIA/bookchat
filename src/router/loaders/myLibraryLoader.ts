@@ -1,9 +1,12 @@
 import { QueryClient } from '@tanstack/react-query';
 import { myLibraryQuery } from '../../utils';
+import { redirect } from 'react-router-dom';
 
 const myLibraryLoader =
   (queryClient: QueryClient, email: string) =>
   async ({ request }: { request: Request }) => {
+    if (!email) return redirect('/signin');
+
     const url = new URL(request.url);
     const searchWord = url.searchParams.get('searchWord') || '';
 
