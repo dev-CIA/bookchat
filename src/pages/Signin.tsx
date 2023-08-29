@@ -14,7 +14,7 @@ type signinFormProp = z.infer<typeof signinSchema>;
 
 const Signin = (props: PaperProps) => {
   const location = useLocation();
-  const emailInput = location.state;
+  const emailInput = location.pathname === '/signup' ? location.state : '';
 
   const { control, handleSubmit } = useForm<signinFormProp>({
     resolver: zodResolver(signinSchema),
