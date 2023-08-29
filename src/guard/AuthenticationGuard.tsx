@@ -1,4 +1,5 @@
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Navigate } from 'react-router-dom';
 import { verify } from '../api/auth';
 
@@ -8,23 +9,14 @@ interface AuthGuardProps {
 }
 
 const AuthenticationGuard = ({ redirectTo, element }: AuthGuardProps) => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-  const [completed, setCompleted] = React.useState(false);
-  React.useEffect(() => {
-    (async () => {
-      try {
-        await verify();
+  const { isFetched, error } = useQuery({
+    queryKey: ['auth'],
+    queryFn: verify,
+    retry: false,
+    staleTime: 1000,
+  });
 
-        setIsAuthenticated(true);
-      } catch (e) {
-        setIsAuthenticated(false);
-      } finally {
-        setCompleted(true);
-      }
-    })();
-  }, [redirectTo]);
-
-  return completed ? isAuthenticated ? element : <Navigate to={redirectTo} /> : null;
+  return isFetched ? error === null ? element : <Navigate to={redirectTo} /> : null;
 };
 
 export default AuthenticationGuard;

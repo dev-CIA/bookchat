@@ -6,7 +6,7 @@ import { myLibraryQuery } from '../../utils';
 import type { BookApiData } from '../../types/bookData';
 
 interface optionsProps {
-  select?: (data: BookApiData[]) => string[];
+  select?: (data: BookApiData[]) => string[] | number[];
 }
 
 const useMyLibraryQuery = (options?: optionsProps) => {
@@ -15,7 +15,7 @@ const useMyLibraryQuery = (options?: optionsProps) => {
 
   const { email } = useRecoilValue(userState);
 
-  const query = useQuery<BookApiData[], AxiosError, BookApiData[] | string[], string[]>({
+  const query = useQuery<BookApiData[], AxiosError, BookApiData[] | string[] | number[], string[]>({
     ...myLibraryQuery(email),
     staleTime: 5 * 60 * 1000,
     ...options,

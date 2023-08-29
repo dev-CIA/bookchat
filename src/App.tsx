@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useRecoilValue } from 'recoil';
 import { userState } from './recoil/atoms';
 import router from './router/router';
+import { Suspense } from 'react';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,7 +46,9 @@ const App = () => {
         withGlobalStyles
         withNormalizeCSS>
         <Notifications />
-        <RouterProvider router={router(queryClient, email)} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <RouterProvider router={router(queryClient, email)} />
+        </Suspense>
       </MantineProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
