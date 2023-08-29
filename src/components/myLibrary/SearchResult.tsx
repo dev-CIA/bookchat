@@ -1,8 +1,10 @@
 import React from 'react';
 import { createStyles, Card, Image, Text, Group, Box, ActionIcon, Rating, rem } from '@mantine/core';
 import { IconFolderPlus, IconArrowBackUp } from '@tabler/icons-react';
-import { BookApiData } from '../../types';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/atoms';
 import { useAddBookMutation } from '../../hooks/mutations';
+import type { BookApiData } from '../../types';
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -41,15 +43,25 @@ interface SearchResultProps {
   libraryIds: number[];
 }
 
+const checkMyLibrary = (id: number, libraryIds: number[]) => libraryIds.some(bookId => bookId === id);
+
 const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
   const { classes } = useStyles();
   const [saveMode, setSaveMode] = React.useState<boolean>(false);
+  const [rate, setRate] = React.useState<number>(book.rate ? book.rate : 0);
+  const { email } = useRecoilValue(userState);
 
-  const checkMyLibrary = (id: number) => libraryIds.some(bookId => bookId === id);
+  const { mutate: addBook } = useAddBookMutation();
 
   const handleAddBook = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSaveMode(saveMode => !saveMode);
+
+    if (saveMode) {
+      const newBook = { ...book, rate };
+      addBook({ email, newBook });
+      console.log('add', email, newBook);
+    }
   };
 
   return (
@@ -69,7 +81,7 @@ const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
           <Card className={classes.save} padding={5} withBorder={saveMode}>
             {saveMode && (
               <>
-                <Rating fractions={2} />
+                <Rating fractions={2} value={rate} onChange={setRate} />
                 <ActionIcon
                   variant="light"
                   color="teal"
@@ -85,7 +97,7 @@ const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
               type="submit"
               variant="filled"
               color="teal"
-              disabled={checkMyLibrary(book.itemId)}>
+              disabled={checkMyLibrary(book.itemId, libraryIds)}>
               <IconFolderPlus size="1rem" />
             </ActionIcon>
           </Card>
