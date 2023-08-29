@@ -60,8 +60,12 @@ const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
     if (saveMode) {
       const newBook = { ...book, rate };
       addBook({ email, newBook });
-      console.log('add', email, newBook);
     }
+  };
+
+  const handleCancelAdd = () => {
+    setSaveMode(false);
+    setRate(0);
   };
 
   return (
@@ -82,12 +86,7 @@ const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
             {saveMode && (
               <>
                 <Rating fractions={2} value={rate} onChange={setRate} />
-                <ActionIcon
-                  variant="light"
-                  color="teal"
-                  onClick={() => {
-                    setSaveMode(false);
-                  }}>
+                <ActionIcon variant="light" color="teal" onClick={handleCancelAdd}>
                   <IconArrowBackUp size="1rem" />
                 </ActionIcon>
               </>
