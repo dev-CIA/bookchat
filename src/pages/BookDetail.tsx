@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Container, Image, Title, Rating, Text, Group, Stack, Space, createStyles } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { unescape } from '../utils';
 
 const mock = {
   title: '어린 왕자',
@@ -45,7 +46,7 @@ const BookDetail = () => {
     <Container>
       <Stack align="center">
         <Title order={2} ta="center">
-          {mock.title}
+          {unescape(mock.title)}
         </Title>
         <Image src={mock.cover} width={smallScreen ? 150 : 250} fit="contain" />
         <Group position="center">
@@ -56,7 +57,7 @@ const BookDetail = () => {
       <Text>{mock.author}</Text>
       <Space h="sm" />
       <Title order={3}>책 소개</Title>
-      <Text>{mock.description}</Text>
+      <Text>{unescape(mock.description)}</Text>
       <Space h="sm" />
       <Title order={3}>출판사</Title>
       <Text>{mock.publisher}</Text>
