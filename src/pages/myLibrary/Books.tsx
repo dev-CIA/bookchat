@@ -2,11 +2,15 @@ import { SimpleGrid, Container } from '@mantine/core';
 import { useLoaderData } from 'react-router-dom';
 import { Book } from '../../components/myLibrary';
 import { useMyLibraryQuery } from '../../hooks/queries';
-import { myLibraryLoader } from '../../router/loaders';
 import type { BookApiData } from '../../types/bookData';
 
+interface MyLibraryloaderData {
+  initialData: any;
+  searchWord: string;
+}
+
 const Books = () => {
-  const { searchWord } = useLoaderData() as Awaited<ReturnType<ReturnType<typeof myLibraryLoader>>>;
+  const { searchWord } = useLoaderData() as MyLibraryloaderData;
   const { libraryData } = useMyLibraryQuery();
 
   const books =
