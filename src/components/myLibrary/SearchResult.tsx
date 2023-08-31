@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, Card, Image, Text, Group, Box, ActionIcon, Rating, rem } from '@mantine/core';
+import { createStyles, Card, Image, Text, Box, ActionIcon, Rating, rem } from '@mantine/core';
 import { IconFolderPlus, IconArrowBackUp } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -10,6 +10,12 @@ import type { BookApiData } from '../../types';
 const useStyles = createStyles(theme => ({
   card: {
     position: 'relative',
+  },
+
+  box: {
+    display: 'flex',
+    textDecoration: 'none',
+    color: 'black',
   },
 
   title: {
@@ -70,8 +76,8 @@ const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
   };
 
   return (
-    <Card withBorder radius="md" p={0} className={classes.card} component={Link} to={`/bookDetail/${book.itemId}`}>
-      <Group noWrap spacing={0}>
+    <Card withBorder radius="md" p={0} className={classes.card}>
+      <Box className={classes.box} component={Link} to={`/bookDetail/${book.itemId}`}>
         <Image src={book.cover} height={160} width={120} fit="contain" />
         <Box className={classes.body}>
           <Text className={classes.title} my="xs" lineClamp={1}>
@@ -82,27 +88,27 @@ const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
             {book.pubDate}
           </Text>
         </Box>
-        <form onSubmit={handleAddBook}>
-          <Card className={classes.save} padding={5} withBorder={saveMode}>
-            {saveMode && (
-              <>
-                <Rating fractions={2} value={rate} onChange={setRate} />
-                <ActionIcon variant="light" color="teal" onClick={handleCancelAdd}>
-                  <IconArrowBackUp size="1rem" />
-                </ActionIcon>
-              </>
-            )}
-            <ActionIcon
-              component="button"
-              type="submit"
-              variant="filled"
-              color="teal"
-              disabled={checkMyLibrary(book.itemId, libraryIds)}>
-              <IconFolderPlus size="1rem" />
-            </ActionIcon>
-          </Card>
-        </form>
-      </Group>
+      </Box>
+      <form onSubmit={handleAddBook}>
+        <Card className={classes.save} padding={5} withBorder={saveMode}>
+          {saveMode && (
+            <>
+              <Rating fractions={2} value={rate} onChange={setRate} />
+              <ActionIcon variant="light" color="teal" onClick={handleCancelAdd}>
+                <IconArrowBackUp size="1rem" />
+              </ActionIcon>
+            </>
+          )}
+          <ActionIcon
+            component="button"
+            type="submit"
+            variant="filled"
+            color="teal"
+            disabled={checkMyLibrary(book.itemId, libraryIds)}>
+            <IconFolderPlus size="1rem" />
+          </ActionIcon>
+        </Card>
+      </form>
     </Card>
   );
 };
