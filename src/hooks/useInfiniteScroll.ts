@@ -1,10 +1,10 @@
 import React from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { searchResultQuery } from '../utils';
+import { getSearchResultQuery } from '../utils';
 
 const useInfiniteScroll = (searchWord: string) => {
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
-    ...searchResultQuery(searchWord),
+    ...getSearchResultQuery(searchWord),
     getNextPageParam: lastPage => lastPage.startIndex + 1 ?? undefined,
   });
 
