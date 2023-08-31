@@ -41,6 +41,9 @@ const BookDetail = () => {
       <Title order={3}>출판사</Title>
       <Text>{detailData.publisher}</Text>
       <Space h="sm" />
+      <Title order={3}>페이지 수</Title>
+      <Text>{detailData.subInfo.itemPage}</Text>
+      <Space h="sm" />
       <Title order={3}>ISBN</Title>
       <Text>{`${detailData.isbn} ${detailData.isbn13}`}</Text>
       <Space h="sm" />
