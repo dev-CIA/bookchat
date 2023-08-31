@@ -1,8 +1,22 @@
+import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
-import { Container, Image, Title, Rating, Text, Group, Stack, Space, createStyles } from '@mantine/core';
+import {
+  Container,
+  Image,
+  Title,
+  Rating,
+  Text,
+  Group,
+  Stack,
+  Space,
+  createStyles,
+  ActionIcon,
+  Tooltip,
+} from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { unescape } from '../utils';
 import { bookDetailLoader } from '../router/loaders';
+import { IconPencil, IconCheck } from '@tabler/icons-react';
 import { BookApiData } from '../types';
 
 const useStyles = createStyles(theme => ({
@@ -21,6 +35,8 @@ const BookDetail = () => {
   const detailData = bookDetail.item[0];
   const rate = myLibrary.find((data: BookApiData) => data.itemId === detailData.itemId)?.rate || 0;
 
+  const [isEditMode, setIsEditMode] = React.useState(false);
+
   return (
     <Container>
       <Stack align="center">
@@ -29,7 +45,12 @@ const BookDetail = () => {
         </Title>
         <Image src={detailData.cover} width={smallScreen ? 150 : 250} fit="contain" />
         <Group position="center">
-          <Rating fractions={2} value={rate} readOnly />
+          <Rating fractions={2} value={rate} readOnly={!isEditMode} />
+          <Tooltip label={isEditMode ? '저장' : '별점 수정'} color="gray.6" position="bottom" withArrow>
+            <ActionIcon variant="outline" color="teal" radius="lg">
+              {isEditMode ? <IconCheck size={18} /> : <IconPencil size={18} />}
+            </ActionIcon>
+          </Tooltip>
         </Group>
       </Stack>
       <Title order={3}>저자</Title>
