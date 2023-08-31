@@ -70,7 +70,7 @@ const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
   };
 
   return (
-    <Card withBorder radius="md" p={0} className={classes.card} component={Link} to={`/bookDetail/${book.isbn13}`}>
+    <Card withBorder radius="md" p={0} className={classes.card} component={Link} to={`/bookDetail/${book.itemId}`}>
       <Group noWrap spacing={0}>
         <Image src={book.cover} height={160} width={120} fit="contain" />
         <Box className={classes.body}>

@@ -29,7 +29,7 @@ const Book = ({ data: book }: { data: BookApiData }) => {
       p={smallScreen ? 5 : 10}
       radius="md"
       component={Link}
-      to={`/bookDetail/${book.isbn13}`}
+      to={`/bookDetail/${book.itemId}`}
       className={classes.card}
       shadow="sm"
       withBorder>
