@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStyles, Card, Image, Text, Group, Box, ActionIcon, Rating, rem } from '@mantine/core';
 import { IconFolderPlus, IconArrowBackUp } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atoms';
 import { useAddBookMutation } from '../../hooks/mutations';
@@ -69,7 +70,7 @@ const SearchResult = ({ book, libraryIds }: SearchResultProps) => {
   };
 
   return (
-    <Card withBorder radius="md" p={0} className={classes.card}>
+    <Card withBorder radius="md" p={0} className={classes.card} component={Link} to={`/bookDetail/${book.isbn13}`}>
       <Group noWrap spacing={0}>
         <Image src={book.cover} height={160} width={120} fit="contain" />
         <Box className={classes.body}>
