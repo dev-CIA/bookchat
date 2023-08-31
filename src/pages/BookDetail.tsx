@@ -3,6 +3,7 @@ import { Container, Image, Title, Rating, Text, Group, Stack, Space, createStyle
 import { useMediaQuery } from '@mantine/hooks';
 import { unescape } from '../utils';
 import { bookDetailLoader } from '../router/loaders';
+import { BookApiData } from '../types';
 
 const useStyles = createStyles(theme => ({
   link: {
@@ -18,6 +19,7 @@ const BookDetail = () => {
 
   const { myLibrary, bookDetail } = useLoaderData() as Awaited<ReturnType<ReturnType<typeof bookDetailLoader>>>;
   const detailData = bookDetail.item[0];
+  const rate = myLibrary.find((data: BookApiData) => data.itemId === detailData.itemId)?.rate || 0;
 
   return (
     <Container>
@@ -27,7 +29,7 @@ const BookDetail = () => {
         </Title>
         <Image src={detailData.cover} width={smallScreen ? 150 : 250} fit="contain" />
         <Group position="center">
-          <Rating fractions={2} value={detailData.rate} readOnly />
+          <Rating fractions={2} value={rate} readOnly />
         </Group>
       </Stack>
       <Title order={3}>저자</Title>
