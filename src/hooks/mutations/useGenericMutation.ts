@@ -26,6 +26,7 @@ const useGenericMutation = <TData, TVariables, TContext>({
     },
 
     onError(error, variables, context) {
+      console.log(error, variables);
       queryClient.setQueryData(queryKey, context?.previousDatas);
     },
   });
