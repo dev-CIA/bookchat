@@ -13,4 +13,8 @@ const getMyLibrary = async (email: string) => {
 const addBook = async ({ email, newBook }: { email: string; newBook: BookApiData }) =>
   axios.post(`/${email}/library`, { email, newBook }, config);
 
-export { getMyLibrary, addBook };
+const editRate = async ({ email, itemId, rate }: { email: string; itemId: string; rate: number }) => {
+  axios.patch(`/${email}/library/${itemId}`, { email, rate }, config);
+};
+
+export { getMyLibrary, addBook, editRate };

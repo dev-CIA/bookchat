@@ -2,11 +2,15 @@ import { SimpleGrid, Container } from '@mantine/core';
 import { useLoaderData } from 'react-router-dom';
 import { Book } from '../../components/myLibrary';
 import { useMyLibraryQuery } from '../../hooks/queries';
-import { myLibraryLoader } from '../../router/loaders';
 import type { BookApiData } from '../../types/bookData';
 
+interface MyLibraryloaderData {
+  initialData: any;
+  searchWord: string;
+}
+
 const Books = () => {
-  const { searchWord } = useLoaderData() as Awaited<ReturnType<ReturnType<typeof myLibraryLoader>>>;
+  const { searchWord } = useLoaderData() as MyLibraryloaderData;
   const { libraryData } = useMyLibraryQuery();
 
   const books =
@@ -26,7 +30,7 @@ const Books = () => {
           { maxWidth: 'xxl', cols: 5, spacing: 'md' },
         ]}>
         {books.length !== 0 ? (
-          (books as BookApiData[]).map(data => <Book key={`${data.itemId}`} {...data} />)
+          (books as BookApiData[]).map(data => <Book key={`${data.itemId}`} data={data} />)
         ) : (
           <div>목록이 없습니다.</div>
         )}

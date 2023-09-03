@@ -9,4 +9,9 @@ const getAladinSearchResults = async (query: string, queryType = 'Keyword', star
   return data;
 };
 
-export { getAladinSearchResults };
+const getBookDetails = async (itemId: string) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/aladin/detail/${itemId}`);
+  return data;
+};
+
+export { getAladinSearchResults, getBookDetails };

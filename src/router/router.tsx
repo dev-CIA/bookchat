@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { QueryClient } from '@tanstack/react-query';
-import { BookChat, Profile, Root, Signin, Signup } from '../pages';
+import { BookChat, BookDetail, Profile, Root, Signin, Signup } from '../pages';
 import { Recommend, RecommendResult, RecommendForm } from '../pages/recommend';
 import { MyLibrary, Books, SearchResults } from '../pages/myLibrary';
 import AuthenticationGuard from '../guard/AuthenticationGuard';
-import { myLibraryLoader, searchLoader } from './loaders';
+import { myLibraryLoader, searchLoader, bookDetailLoader } from './loaders';
 
 const router = (queryClient: QueryClient, email: string) =>
   createBrowserRouter([
@@ -45,6 +45,11 @@ const router = (queryClient: QueryClient, email: string) =>
               loader: searchLoader(queryClient),
             },
           ],
+        },
+        {
+          path: 'bookDetail/:itemId',
+          element: <BookDetail />,
+          loader: bookDetailLoader(queryClient, email),
         },
         {
           path: 'profile',

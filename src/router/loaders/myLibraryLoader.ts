@@ -1,5 +1,5 @@
 import { QueryClient } from '@tanstack/react-query';
-import { myLibraryQuery } from '../../utils';
+import { getMyLibraryQuery } from '../../utils';
 import { redirect } from 'react-router-dom';
 
 const myLibraryLoader =
@@ -10,7 +10,7 @@ const myLibraryLoader =
     const url = new URL(request.url);
     const searchWord = url.searchParams.get('searchWord') || '';
 
-    const query = myLibraryQuery(email);
+    const query = getMyLibraryQuery(email);
 
     return {
       initialData: queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query)),

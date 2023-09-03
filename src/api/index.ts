@@ -1,4 +1,4 @@
 export { updateChat } from './openai';
 export { signin, singup, singout } from './auth';
-export { getMyLibrary, addBook } from './user';
-export { getAladinSearchResults } from './aladinSearch';
+export { getMyLibrary, addBook, editRate } from './user';
+export { getAladinSearchResults, getBookDetails } from './aladinSearch';
