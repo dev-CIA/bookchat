@@ -10,14 +10,15 @@ const bookDetailLoader =
     if (typeof params.itemId === 'string') {
       const bookQuery = getBookDetailQuery(params.itemId);
 
-      const myLibrary =
+      const initailMyLibrary =
         queryClient.getQueryData(myLibraryQuery.queryKey) ?? (await queryClient.fetchQuery(myLibraryQuery));
 
-      const bookDetail = queryClient.getQueryData(bookQuery.queryKey) ?? (await queryClient.fetchQuery(bookQuery));
+      const initialBookDetail =
+        queryClient.getQueryData(bookQuery.queryKey) ?? (await queryClient.fetchQuery(bookQuery));
 
       return {
-        myLibrary,
-        bookDetail,
+        initailMyLibrary,
+        initialBookDetail,
       };
     } else {
       return { myLibrary: undefined, bookDetail: undefined };
