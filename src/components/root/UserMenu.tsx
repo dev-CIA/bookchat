@@ -1,23 +1,28 @@
 import { Menu, UnstyledButton, Avatar, ActionIcon } from '@mantine/core';
 import { IconSettings, IconLogout, IconLogin } from '@tabler/icons-react';
-import { useRecoilState } from 'recoil';
-import { isLoginState } from '../../recoil/atoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { isLoginState, menuState, userState } from '../../recoil/atoms';
 import { singout } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
 
 const UserMenu = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
+  const setUser = useSetRecoilState(userState);
+  const setMenu = useSetRecoilState(menuState);
   const navigate = useNavigate();
   const mediumScreen = useMediaQuery('(min-width: 64em');
 
   const handleSignout = async () => {
+    navigate('/chat');
+
     const { data } = await singout();
 
+    setUser({ email: null, nickName: null });
+    setMenu('0');
     localStorage.removeItem('userState');
     localStorage.removeItem('menuState');
     setIsLogin(data.isLogin);
-    navigate('/chat');
   };
 
   const handleSignin = () => {
