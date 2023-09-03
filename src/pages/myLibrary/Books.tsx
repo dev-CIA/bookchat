@@ -30,7 +30,7 @@ const Books = () => {
           { maxWidth: 'xxl', cols: 5, spacing: 'md' },
         ]}>
         {books.length !== 0 ? (
-          (books as BookApiData[]).map(data => <Book key={`${data.itemId}`} {...data} />)
+          (books as BookApiData[]).map(data => <Book key={`${data.itemId}`} data={data} />)
         ) : (
           <div>목록이 없습니다.</div>
         )}
