@@ -7,6 +7,7 @@ import type { BookApiData } from '../../types/bookData';
 
 interface optionsProps {
   select?: (data: BookApiData[]) => string[] | number[];
+  initialData?: BookApiData[];
 }
 
 const useMyLibraryQuery = (options?: optionsProps) => {
