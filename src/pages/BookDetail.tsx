@@ -1,23 +1,16 @@
 import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
-import {
-  Container,
-  Image,
-  Title,
-  Rating,
-  Text,
-  Group,
-  Stack,
-  Space,
-  createStyles,
-  ActionIcon,
-  Tooltip,
-} from '@mantine/core';
+import { Link, useLoaderData, useParams } from 'react-router-dom';
+import { Container, Image, Title, Rating, Text, Group, Stack, Space, createStyles, Tooltip } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { unescape } from '../utils';
 import { bookDetailLoader } from '../router/loaders';
-import { IconPencil, IconCheck } from '@tabler/icons-react';
 import { BookApiData } from '../types';
+import useRatingMutation from '../hooks/mutations/useRatingMutation';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../recoil/atoms';
+import { useMyLibraryQuery } from '../hooks/queries';
+import { useAddBookMutation } from '../hooks/mutations';
+import useBookDetailQuery from '../hooks/queries/useBookDetailQuery';
 
 const useStyles = createStyles(theme => ({
   link: {
@@ -30,12 +23,39 @@ const useStyles = createStyles(theme => ({
 const BookDetail = () => {
   const { classes } = useStyles();
   const smallScreen = useMediaQuery('(max-width: 48em');
+  const { email } = useRecoilValue(userState);
+  const params = useParams();
 
-  const { myLibrary, bookDetail } = useLoaderData() as Awaited<ReturnType<ReturnType<typeof bookDetailLoader>>>;
-  const detailData = bookDetail.item[0];
-  const rate = myLibrary.find((data: BookApiData) => data.itemId === detailData.itemId)?.rate || 0;
+  const { initailMyLibrary, initialBookDetail } = useLoaderData() as Awaited<
+    ReturnType<ReturnType<typeof bookDetailLoader>>
+  >;
 
+  const { libraryData } = useMyLibraryQuery({ initialData: initailMyLibrary });
+  const { bookDetailData } = useBookDetailQuery(params.itemId as string, { initialData: initialBookDetail });
+  const detailData = bookDetailData.item[0];
+
+  const [rate, setRate] = React.useState(0);
   const [isEditMode, setIsEditMode] = React.useState(false);
+  const _rate = (libraryData as BookApiData[]).find((data: BookApiData) => data.itemId === detailData.itemId)?.rate;
+
+  const { mutate: editRate } = useRatingMutation();
+  const { mutate: addBook } = useAddBookMutation();
+
+  React.useEffect(() => {
+    setRate(_rate || 0);
+    setIsEditMode(_rate !== undefined ? false : true);
+  }, [_rate, libraryData]);
+
+  const handleEditMode = () => {
+    setIsEditMode(isEditMode => !isEditMode);
+  };
+
+  const handleRate = (rate: number) => {
+    setRate(rate);
+    setIsEditMode(isEditMode => !isEditMode);
+    if (_rate) editRate({ email, itemId: detailData.itemId, rate: rate });
+    if (!_rate) addBook({ email, newBook: { ...detailData, rate: rate } });
+  };
 
   return (
     <Container>
@@ -44,14 +64,18 @@ const BookDetail = () => {
           {unescape(detailData.title)}
         </Title>
         <Image src={detailData.cover} width={smallScreen ? 150 : 250} fit="contain" />
-        <Group position="center">
-          <Rating fractions={2} value={rate} readOnly={!isEditMode} />
-          <Tooltip label={isEditMode ? '저장' : '별점 수정'} color="gray.6" position="bottom" withArrow>
-            <ActionIcon variant="outline" color="teal" radius="lg">
-              {isEditMode ? <IconCheck size={18} /> : <IconPencil size={18} />}
-            </ActionIcon>
-          </Tooltip>
-        </Group>
+        <Tooltip.Floating label={!isEditMode && '수정하려면 더블클릭하세요'} color="gray.6" position="bottom">
+          <Group position="center">
+            <Rating
+              value={rate}
+              fractions={2}
+              size="xl"
+              readOnly={!isEditMode}
+              onChange={rate => handleRate(rate)}
+              onDoubleClick={handleEditMode}
+            />
+          </Group>
+        </Tooltip.Floating>
       </Stack>
       <Title order={3}>저자</Title>
       <Text>{detailData.author}</Text>
