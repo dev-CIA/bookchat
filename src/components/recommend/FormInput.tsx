@@ -20,8 +20,8 @@ const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
   const { classes } = useStyles();
   const { control } = useFormContext();
 
-  const preventSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') e.preventDefault();
+  const preventSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') event.preventDefault();
   };
 
   return (
@@ -34,6 +34,7 @@ const FormInput = ({ id, datas, title, placeholder }: SelectorProps) => {
           label={title}
           onKeyDown={preventSubmit}
           placeholder={placeholder}
+          disabled={datas.length === 0}
           searchable
           clearable
           allowDeselect

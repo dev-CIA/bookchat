@@ -1,12 +1,27 @@
-import { RecoilRoot } from 'recoil';
-import { RouterProvider } from 'react-router-dom';
-import router from './router/router';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
+import { RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useRecoilValue } from 'recoil';
+import { userState } from './recoil/atoms';
+import router from './router/router';
+import { Suspense } from 'react';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      staleTime: 3 * 1000,
+    },
+  },
+});
 
 const App = () => {
+  const { email } = useRecoilValue(userState);
+
   return (
-    <RecoilRoot>
+    <QueryClientProvider client={queryClient}>
       <MantineProvider
         theme={{
           globalStyles: () => ({
@@ -31,9 +46,12 @@ const App = () => {
         withGlobalStyles
         withNormalizeCSS>
         <Notifications />
-        <RouterProvider router={router} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <RouterProvider router={router(queryClient, email)} />
+        </Suspense>
       </MantineProvider>
-    </RecoilRoot>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
