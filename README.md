@@ -1,7 +1,7 @@
 # BOOK CHAT
 
 <div align="center">
-   <img width="200px;" src="./public/logo/bookchatLogo.png">
+   <a href="https://www.mybookchat.com"><img width="200px;" src="./public/logo/bookchatLogo.png"></a>
    <p style="font-size: 20px; font-weight: 700;">ChatGPT 기반 책 토론 및 책 추천 서비스</p>
    <hr style="width: 20%; height: 0px; background-Color: transparent; border-bottom: 8px dotted #C3FAE8
 "/>   
@@ -10,7 +10,7 @@
    
    <br/>
    
-   <a href="https://www.mybookchat.com"><img width="180px;" alt="Static Badge" src="https://img.shields.io/badge/%EB%B0%B0%ED%8F%AC%ED%8E%98%EC%9D%B4%EC%A7%80-BOOK%20CHAT-37B24D"></a>
+   <a href="https://www.mybookchat.com"><img width="170px;" alt="Static Badge" src="https://img.shields.io/badge/%EB%B0%B0%ED%8F%AC%ED%8E%98%EC%9D%B4%EC%A7%80-BOOK%20CHAT-37B24D"></a>
    
    <a href="https://github.com/dev-CIA/bookchat-server"><img alt="Static Badge" src="https://img.shields.io/badge/repo-BOOK%20CHAT%20Server-blue?logo=github">
 </a>
@@ -34,7 +34,7 @@
 
 1. 기간: 2023.7 ~
 2. 참여 인원: 1인 (개인 프로젝트)
-3. 프로젝트 관리 및 회고: [Github Projects](https://github.com/users/dev-CIA/projects/1), [Issues](https://github.com/dev-CIA/bookchat/issues) 사용하여 정리
+3. 프로젝트 관리 및 회고: [Github Projects](https://github.com/users/dev-CIA/projects/1), [Github Issues](https://github.com/dev-CIA/bookchat/issues) 사용하여 정리
 
 ## 기술 스택
 
