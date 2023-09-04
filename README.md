@@ -1,7 +1,7 @@
 # BOOK CHAT
 
 <div align="center">
-   <a href="https://www.mybookchat.com"><img width="200px;" src="./public/logo/bookchatLogo.png"></a>
+   <img width="200px;" src="https://github.com/dev-CIA/bookchat/assets/112180368/da229206-2f84-464f-ac9d-dd4106c78cd7">
    <p style="font-size: 20px; font-weight: 700;">ChatGPT 기반 책 토론 및 책 추천 서비스</p>
    <hr style="width: 20%; height: 0px; background-Color: transparent; border-bottom: 8px dotted #C3FAE8"/>
    <p>책에 대해 <span style="color: teal;">토론</span>할 사람이 필요할 때, <span style="color: teal; font-weight: bold;">북챗!</span></p>
@@ -11,8 +11,7 @@
    
    <a href="https://www.mybookchat.com"><img width="170px;" alt="Static Badge" src="https://img.shields.io/badge/%EB%B0%B0%ED%8F%AC%ED%8E%98%EC%9D%B4%EC%A7%80-BOOK%20CHAT-37B24D"></a>
    
-   <a href="https://github.com/dev-CIA/bookchat-server"><img alt="Static Badge" src="https://img.shields.io/badge/repo-BOOK%20CHAT%20Server-blue?logo=github">
-</a>
+   <a href="https://github.com/dev-CIA/bookchat-server"><img alt="Static Badge" src="https://img.shields.io/badge/repo-BOOK%20CHAT%20Server-blue?logo=github"></a>
 </div>
 
 <br />
