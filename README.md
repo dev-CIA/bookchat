@@ -3,8 +3,7 @@
 <div align="center">
    <a href="https://www.mybookchat.com"><img width="200px;" src="./public/logo/bookchatLogo.png"></a>
    <p style="font-size: 20px; font-weight: 700;">ChatGPT 기반 책 토론 및 책 추천 서비스</p>
-   <hr style="width: 20%; height: 0px; background-Color: transparent; border-bottom: 8px dotted #C3FAE8
-"/>   
+   <hr style="width: 20%; height: 0px; background-Color: transparent; border-bottom: 8px dotted #C3FAE8"/>
    <p>책에 대해 <span style="color: teal;">토론</span>할 사람이 필요할 때, <span style="color: teal; font-weight: bold;">북챗!</span></p>
    <p>날씨, 기분 등 내 상황에 맞는 책 <span style="color: teal;">추천</span>받고 싶을때, <span style="color: teal; font-weight: bold;">북챗!</span></p>
    
