@@ -32,7 +32,7 @@
 
 ## 프로젝트 개요
 
-1. 기간: 2023.7 ~
+1. 기간: 2023.07.22 ~
 2. 참여 인원: 1인 (개인 프로젝트)
 3. 프로젝트 관리 및 회고: [Github Projects](https://github.com/users/dev-CIA/projects/1), [Github Issues](https://github.com/dev-CIA/bookchat/issues) 사용하여 정리
 
