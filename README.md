@@ -4,9 +4,13 @@
    <img width="200px;" src="https://github.com/dev-CIA/bookchat/assets/112180368/da229206-2f84-464f-ac9d-dd4106c78cd7">
    <br />
   
-   <span style="font-size: 20px; font-weight: 700;">ChatGPT 기반 책 토론 및 책 추천 서비스</span>
+   <h3>ChatGPT 기반 책 토론 및 책 추천 서비스</h3>
    
-   <span style="font-size: 8px;">🔹🔹🔹</span>
+   <br />
+
+<span style="font-size: 8px;">✷ ✷ ✷</span>
+
+   <br />
 
 책에 대해 <u>토론</u>할 사람이 필요할 때, **북챗!**
 
