@@ -1,7 +1,7 @@
 # BOOK CHAT
 
 <div align="center">
-   <img width="200px;" src="https://github.com/dev-CIA/bookchat/assets/112180368/da229206-2f84-464f-ac9d-dd4106c78cd7">
+   <img width="200px;" src="https://github.com/dev-CIA/bookchat/assets/112180368/a78db65f-4065-4c33-a66a-2f0d46f66ba7">
    <br />
   
    <h3>ChatGPT 기반 책 토론 및 책 추천 서비스</h3>
