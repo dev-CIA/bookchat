@@ -46,6 +46,8 @@
 
 ## 기술 스택
 
+### Frontend
+
 ![TypeScript](https://img.shields.io/badge/typescript-3178C6.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
@@ -58,6 +60,11 @@
 ![MANTINE](https://img.shields.io/badge/mantine-339AF0?style=for-the-badge&logo=mantine&logoColor=white)
 ![Emotion](https://img.shields.io/badge/emotion-DB7093?style=for-the-badge&logo=emotion&logoColor=white)
 
+### Backend <a href="https://github.com/dev-CIA/bookchat-server"><img width='120px;' alt="Static Badge" src="https://img.shields.io/badge/repo-BOOK%20CHAT%20Server-blue?logo=github"></a>
+
+![Node.js](https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 <br />
 <br />
 
