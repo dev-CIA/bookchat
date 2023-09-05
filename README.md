@@ -2,11 +2,11 @@
 
 <div align="center">
    <img width="200px;" src="https://github.com/dev-CIA/bookchat/assets/112180368/da229206-2f84-464f-ac9d-dd4106c78cd7">
-   <p style="font-size: 20px; font-weight: 700;">ChatGPT 기반 책 토론 및 책 추천 서비스</p>
-   <div style="width: 20%; height: 0px; background-Color: transparent; border-bottom: 8px dotted #C3FAE8"></div>
-   <br/>
-   <p>책에 대해 <span style="color: teal;">토론</span>할 사람이 필요할 때, <span style="color: teal; font-weight: bold;">북챗!</span></p>
-   <p>날씨, 기분 등 내 상황에 맞는 책 <span style="color: teal;">추천</span>받고 싶을때, <span style="color: teal; font-weight: bold;">북챗!</span></p>
+   <span style="font-size: 20px; font-weight: 700;">ChatGPT 기반 책 토론 및 책 추천 서비스</span>
+   <hr style="width: 20%; height: 0px; background-Color: transparent; border-bottom: 8px dotted #C3FAE8"/>
+   <span>책에 대해 <span style="color: teal;">토론</span>할 사람이 필요할 때, <span style="color: teal; font-weight: bold;">북챗!</span></span>
+   <br />
+   <div>날씨, 기분 등 내 상황에 맞는 책 <span style="color: teal;">추천</span>받고 싶을때, <span style="color: teal; font-weight: bold;">북챗!</span></div>
    
    <br/>
    
