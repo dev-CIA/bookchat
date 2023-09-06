@@ -4,6 +4,8 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { AppShell, createStyles } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { links } from '../constants';
+import { useSetRecoilState } from 'recoil';
+import { menuState } from '../recoil/atoms';
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -16,9 +18,11 @@ const Root = () => {
   const { pathname } = useLocation();
   const { classes } = useStyles();
   const mediumScreen = useMediaQuery('(min-width: 64em');
+  const setActiveMenu = useSetRecoilState(menuState);
 
   React.useEffect(() => {
     if (pathname !== '/chat' && pathname !== '/') return;
+    setActiveMenu('0');
     navigate('/chat');
   }, []);
 
