@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStyles, Header, Container, Anchor, Group, rem, Button } from '@mantine/core';
-import { Link, useLocation, useParams } from 'react-router-dom';
-import { sizes } from '../../constants';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { Link, useLocation } from 'react-router-dom';
 import { isLoginState, menuState } from '../../recoil/atoms';
 import { UserMenu } from '.';
+import { sizes } from '../../constants';
 
 const useStyles = createStyles(theme => ({
   inner: {
@@ -67,7 +67,6 @@ const MainHeader = ({ mainLinks }: MainHeaderProps) => {
   const [activeMenu, setActiveMenu] = useRecoilState(menuState);
   const isLogin = useRecoilValue(isLoginState);
   const { pathname } = useLocation();
-  console.log(pathname);
 
   React.useEffect(() => {
     setActiveMenu(pathname.includes('/chat') ? '0' : pathname.includes('/recommend') ? '1' : '2');
