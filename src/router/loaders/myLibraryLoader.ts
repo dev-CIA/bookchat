@@ -1,11 +1,19 @@
 import { QueryClient } from '@tanstack/react-query';
-import { getMyLibraryQuery } from '../../utils';
+import { getAuthQuery, getMyLibraryQuery } from '../../utils';
 import { redirect } from 'react-router-dom';
 
 const myLibraryLoader =
   (queryClient: QueryClient, email: string) =>
   async ({ request }: { request: Request }) => {
     if (!email) return redirect('/signin');
+
+    try {
+      const authQuery = getAuthQuery();
+
+      queryClient.getQueryData(authQuery.queryKey) ?? (await queryClient.fetchQuery(authQuery));
+    } catch (error) {
+      if (error) return redirect('/signin');
+    }
 
     const url = new URL(request.url);
     const searchWord = url.searchParams.get('searchWord') || '';

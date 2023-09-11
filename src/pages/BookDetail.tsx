@@ -10,7 +10,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../recoil/atoms';
 import { useMyLibraryQuery } from '../hooks/queries';
 import { useAddBookMutation } from '../hooks/mutations';
-import useBookDetailQuery from '../hooks/queries/useBookDetailQuery';
+import { useBookDetailQuery } from '../hooks/queries';
 
 const useStyles = createStyles(theme => ({
   link: {
