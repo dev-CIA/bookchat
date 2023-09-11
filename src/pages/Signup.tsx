@@ -8,6 +8,7 @@ import { signupSchema } from '../schema';
 import { SwitchForm, WelcomeLogo } from '../components/auth';
 import { notifications } from '@mantine/notifications';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { IconAlertCircleFilled } from '@tabler/icons-react';
 
 type signupFormProp = z.infer<typeof signupSchema>;
 
@@ -40,6 +41,7 @@ const Signup = (props: PaperProps) => {
         title: '회원가입 실패',
         message: `${error.response.status === 409 ? error.response.data : '회원가입에 실패했습니다.'}.`,
         color: 'red',
+        icon: <IconAlertCircleFilled />,
       });
     }
   };
