@@ -8,7 +8,7 @@ import { useMediaQuery } from '@mantine/hooks';
 
 const UserMenu = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
-  const setUser = useSetRecoilState(userState);
+  const [user, setUser] = useRecoilState(userState);
   const setMenu = useSetRecoilState(menuState);
   const navigate = useNavigate();
   const mediumScreen = useMediaQuery('(min-width: 64em');
@@ -52,8 +52,8 @@ const UserMenu = () => {
       <Menu.Dropdown>
         {isLogin ? (
           <>
-            <Menu.Label>김아무개씨</Menu.Label>
-            <Menu.Item icon={<IconSettings size={14} />}>설정</Menu.Item>
+            <Menu.Label>{user.nickname}님, 안녕하세요</Menu.Label>
+            {/* <Menu.Item icon={<IconSettings size={14} />}>설정</Menu.Item> */}
 
             <Menu.Divider />
 
