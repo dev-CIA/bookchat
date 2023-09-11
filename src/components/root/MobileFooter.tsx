@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import React from 'react';
 import { createStyles, rem, Footer, Flex, Box } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { Link, useLocation } from 'react-router-dom';
 import { sizes } from '../../constants';
+import { menuState } from '../../recoil/atoms';
 
 const useStyles = createStyles(theme => ({
   mainLink: {
@@ -48,7 +50,12 @@ interface HeaderProps {
 
 const MobileFooter = ({ mainLinks }: HeaderProps) => {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState(0);
+  const [activeMenu, setActiveMenu] = useRecoilState(menuState);
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    setActiveMenu(pathname.includes('/chat') ? '0' : pathname.includes('/recommend') ? '1' : '2');
+  }, []);
 
   const mainItems = mainLinks.map((item, index) => (
     <Box
@@ -59,9 +66,9 @@ const MobileFooter = ({ mainLinks }: HeaderProps) => {
       h={sizes.HEADER_HEIGHT}
       onClick={event => {
         event.preventDefault();
-        setActive(index);
+        setActiveMenu(index + '');
       }}>
-      <Link to={item.link} className={cx(classes.mainLink, { [classes.mainLinkActive]: index === active })}>
+      <Link to={item.link} className={cx(classes.mainLink, { [classes.mainLinkActive]: index === +activeMenu })}>
         {item.label}
       </Link>
     </Box>
