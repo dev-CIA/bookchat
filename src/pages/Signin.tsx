@@ -9,6 +9,8 @@ import { z } from 'zod';
 import { signinSchema } from '../schema';
 import { SwitchForm, WelcomeLogo } from '../components/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { notifications } from '@mantine/notifications';
+import { IconAlertCircleFilled } from '@tabler/icons-react';
 
 type signinFormProp = z.infer<typeof signinSchema>;
 
@@ -37,7 +39,16 @@ const Signin = (props: PaperProps) => {
       setActiveMenu('0');
       navigate('/');
     } catch (error: any) {
-      console.error('로그인 실패: ', error.message);
+      const errorMessage = error.response.data.error ?? error.message;
+
+      notifications.show({
+        title: '로그인 실패',
+        message: errorMessage,
+        color: 'red',
+        icon: <IconAlertCircleFilled />,
+      });
+
+      console.error('로그인 실패: ', errorMessage);
     }
   };
 
