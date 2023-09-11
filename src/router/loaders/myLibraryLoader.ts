@@ -12,7 +12,6 @@ const myLibraryLoader =
 
       queryClient.getQueryData(authQuery.queryKey) ?? (await queryClient.fetchQuery(authQuery));
     } catch (error) {
-      console.log(error);
       if (error) return redirect('/signin');
     }
 
