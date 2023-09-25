@@ -1,16 +1,22 @@
-import { atom } from 'recoil';
+import { AtomEffect, atom } from 'recoil';
 import { RECOIL_KEY } from '../../constants';
 
-const localStorageEffect = ({ onSet }: any) => {
-  onSet((newState: string) => {
-    localStorage.setItem(RECOIL_KEY.MENU_STATE, JSON.stringify(newState));
-  });
-};
+interface Menu {
+  [key: string]: number;
+}
+
+const localStorageEffect =
+  <T>(key: string): AtomEffect<T> =>
+  ({ onSet }) => {
+    onSet(newState => {
+      localStorage.setItem(key, JSON.stringify(newState));
+    });
+  };
 
 const menuState = atom({
   key: RECOIL_KEY.MENU_STATE,
   default: JSON.parse(localStorage.getItem(RECOIL_KEY.MENU_STATE) || '0'),
-  effects: [localStorageEffect],
+  effects: [localStorageEffect<Menu>(RECOIL_KEY.MENU_STATE)],
 });
 
 export default menuState;
