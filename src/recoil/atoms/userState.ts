@@ -1,16 +1,15 @@
 import { atom } from 'recoil';
-
-const KEY = 'userState';
+import { RECOIL_KEY } from '../../constants';
 
 const localStorageEffect = ({ onSet }: any) => {
   onSet((newUser: string) => {
-    localStorage.setItem(KEY, JSON.stringify(newUser));
+    localStorage.setItem(RECOIL_KEY.USER_STATE, JSON.stringify(newUser));
   });
 };
 
 const userState = atom({
-  key: KEY,
-  default: JSON.parse(localStorage.getItem(KEY) || '{}'),
+  key: RECOIL_KEY.USER_STATE,
+  default: JSON.parse(localStorage.getItem(RECOIL_KEY.USER_STATE) || '{}'),
   effects: [localStorageEffect],
 });
 
