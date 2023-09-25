@@ -1,17 +1,22 @@
-import { atom } from 'recoil';
+import { AtomEffect, atom } from 'recoil';
+import { RECOIL_KEY } from '../../constants';
 
-const KEY = 'userState';
+interface User {
+  [key: string]: string;
+}
 
-const localStorageEffect = ({ onSet }: any) => {
-  onSet((newUser: string) => {
-    localStorage.setItem(KEY, JSON.stringify(newUser));
-  });
-};
+const localStorageEffect =
+  <T>(key: string): AtomEffect<T> =>
+  ({ onSet }) => {
+    onSet(newUser => {
+      localStorage.setItem(key, JSON.stringify(newUser));
+    });
+  };
 
 const userState = atom({
-  key: KEY,
-  default: JSON.parse(localStorage.getItem(KEY) || '{}'),
-  effects: [localStorageEffect],
+  key: RECOIL_KEY.USER_STATE,
+  default: JSON.parse(localStorage.getItem(RECOIL_KEY.USER_STATE) || '{}'),
+  effects: [localStorageEffect<User>(RECOIL_KEY.USER_STATE)],
 });
 
 export default userState;
