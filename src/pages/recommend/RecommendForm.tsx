@@ -11,14 +11,16 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoginState } from '../../recoil/atoms';
 import { useMyLibraryQuery } from '../../hooks/queries';
+import { RecommendResult } from '../../types';
 
 type FormData = z.infer<typeof partialConditionForm>;
 
-const getResultData = (data: string) => {
-  const result = { firstComment: '', books: [{}], lastComment: '' };
+const getResultData = (data: string | RecommendResult[]) => {
+  const result = { firstComment: '', books: [] as RecommendResult[], lastComment: '' };
 
-  const initialData = data.split('\n');
-  initialData.forEach((data, idx) => {
+  const initialData = typeof data === 'string' ? data.split('\n') : null;
+
+  initialData?.forEach((data, idx) => {
     if (idx < 2 && !data.includes('id') && !data.includes('title') && data !== '') result.firstComment = data;
     if (data.includes('id') && data.includes('title')) {
       let firstIdx = data.indexOf('{');
@@ -27,7 +29,9 @@ const getResultData = (data: string) => {
     }
     if (idx > 2 && !data.includes('id') && !data.includes('title') && data !== '') result.lastComment = data;
   });
-  result.books.shift();
+
+  if (typeof data === 'string') result.books;
+  if (typeof data === 'object') result.books = data;
 
   return result;
 };
