@@ -5,8 +5,10 @@ import { getSearchResultQuery } from '../utils';
 const useInfiniteScroll = (searchWord: string) => {
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
     ...getSearchResultQuery(searchWord),
-    getNextPageParam: lastPage => lastPage.startIndex + 1 ?? undefined,
+    getNextPageParam: lastPage => lastPage?.startIndex + 1,
   });
+
+  console.log('data: ', data);
 
   const observerTargetRef = React.useRef<HTMLDivElement | null>(null);
 
