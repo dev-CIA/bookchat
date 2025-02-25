@@ -2,6 +2,7 @@ import { Text, Group, Button, Title, Flex, createStyles } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { ResultCard } from '../../components/recommend';
 import { Link, useLocation } from 'react-router-dom';
+import { RecommendResult as DataProp } from '../../types';
 
 const useStyles = createStyles(() => ({
   comment: {
@@ -9,19 +10,12 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-interface dataProp {
-  id: number;
-  title: string;
-  author: string;
-  reason: string;
-}
-
 const RecommendResult = () => {
   const { classes } = useStyles();
   const location = useLocation();
   const resultData = location.state;
 
-  const slides = resultData.books.map((data: dataProp) => (
+  const slides = resultData.books.map((data: DataProp) => (
     <Carousel.Slide key={data.title}>
       <ResultCard {...data} />
     </Carousel.Slide>

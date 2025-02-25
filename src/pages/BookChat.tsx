@@ -117,9 +117,7 @@ const BookChat = () => {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-      sendMessage();
-    }
+    if (event.key === 'Enter') sendMessage();
   };
 
   return (
